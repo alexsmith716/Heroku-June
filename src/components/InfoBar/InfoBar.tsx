@@ -36,9 +36,8 @@ export const InfoBar: React.FC = () => {
 					{/* (>>>>>>>>>>>>>>>>>>>>>> ERROR >>>>>>>>>>>>>>>>>>>>>>>>) */}
 					{error && (
 						<>
-							<div>RENDERING ERROR</div>
-							<div>{`Message: ${errorResponse.error.message}`}</div>
-							<div>{`Url: ${errorResponse.documentation_url}`}</div>
+							<div>ERROR!</div>
+							<div>{`${errorResponse.error.message}`}</div>
 						</>
 					)}
 
@@ -53,13 +52,12 @@ export const InfoBar: React.FC = () => {
 								&apos;
 							</div>
 							<div>{data && new Date(data.result.time).toString()}</div>
-							<div>{data && data.result.timeElapsed}</div>
 
 							<div className="mt-2">
 								<Button
 									className="btn-primary btn-md"
 									onClick={doLoadInfo}
-									buttonText="Reload from server"
+									buttonText="Reload from mockAPI"
 								/>
 							</div>
 						</Styles.InfoBarContainerStyled>

@@ -1,8 +1,8 @@
-import { postRequestConcatExportASYNC } from '../../utils/mockAPI';
+import { calcCSV } from '../../containers/AboutCSV/calcCSV';
 
-const LOAD = 'redux-example/infoAlert/LOAD';
-const LOAD_SUCCESS = 'redux-example/infoAlert/LOAD_SUCCESS';
-const LOAD_FAIL = 'redux-example/infoAlert/LOAD_FAIL';
+const LOAD = 'redux-example/aboutCSV/LOAD';
+const LOAD_SUCCESS = 'redux-example/aboutCSV/LOAD_SUCCESS';
+const LOAD_FAIL = 'redux-example/aboutCSV/LOAD_FAIL';
 
 export type Actions = { type: typeof LOAD } | { type: typeof LOAD_SUCCESS } | { type: typeof LOAD_FAIL };
 
@@ -48,9 +48,8 @@ export const reducer = (state: State = initialState, action: Actions): State => 
 				...state,
 				loading: false,
 				loaded: false,
-				// error: action.error,
 				error: true,
-				errorResponse: { message: action, documentation_url: '' },
+				errorResponse: action,
 			};
 
 		default:
@@ -58,13 +57,13 @@ export const reducer = (state: State = initialState, action: Actions): State => 
 	}
 };
 
-export function isInfoAlertLoaded(storeState: State): boolean {
+export function isAboutCSVLoaded(storeState: State): boolean {
 	return storeState && storeState.loaded;
 }
 
-export function loadInfoAlert(): LoadActions {
+export function loadAboutCSV(): LoadActions {
 	return {
 		types: [LOAD, LOAD_SUCCESS, LOAD_FAIL],
-		promise: () => postRequestConcatExportASYNC('resolve', true, 10, null),
+		promise: () => calcCSV(),
 	};
 }

@@ -1,211 +1,38 @@
 import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
-import papa from 'papaparse';
-//	import { S3Client, GetObjectCommand, } from '@aws-sdk/client-s3'; // ListBucketsCommand, ListObjectsCommand
-//	import { ReadableStream } from 'readable-stream';
-//	import config from '../../../config.json';
-import * as Styles from './styles';
 
-	//	https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-s3/index.html
-	//	https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-s3/classes/s3.html#getobject
-	//	https://nodejs.org/api/stream.html
-	//	https://nodejs.org/api/all.html#util_textdecoder_decode_input_options
-	//	https://github.com/nodejs/readable-stream
-	//	stream.Readable: node
-	//	ReadableStream: browser
+import { useSelector, useDispatch } from 'react-redux';
+import { loadAboutCSV } from '../../redux/modules/aboutCSV';
+import { State as AboutCSVState } from '../../redux/modules/aboutCSV';
+import { Loading } from '../../components/Loading';
+
+import * as Styles from './styles';
 
 const AboutCSV = () => {
 
-	const [responsePLANS, setResponsePLANS] = useState(null);
-	const [responseZIPS, setResponseZIPS] = useState(null);
-	const [responseSLCSP, setResponseSLCSP] = useState('');
-	const [calculatedSLCSP, setCalculatedSLCSP] = useState('');
+	const dispatch = useDispatch();
 
-	//	const client = new S3Client({
-	//		credentials: {
-	//			accessKeyId: config.aws.aws_access_key_id,
-	//			secretAccessKey: config.aws.aws_secret_access_key,
-	//		},
-	//		region: config.aws.aws_region,
-	//	});
+	const loading = useSelector((state) => state.aboutCSV.loading);
+	const error = useSelector((state) => state.aboutCSV.error);
+	const errorResponse = useSelector((state) => state.aboutCSV.errorResponse);
+	const data = useSelector((state) => state.aboutCSV.data);
+	const [dispatchError, setDispatchError] = useState(null);
 
-	//	const commandPlans = new GetObjectCommand({ Bucket: config.aws.aws_bucket, Key: 'plans.csv' });
-	//	const commandZips = new GetObjectCommand({ Bucket: config.aws.aws_bucket, Key: 'zips.csv' });
-	//	const commandSlcsp = new GetObjectCommand({ Bucket: config.aws.aws_bucket, Key: 'slcsp.csv' });
-
-	//  function streamToString(stream) {
-	//  	return new Promise((resolve, reject) => {
-	//  		if (stream instanceof ReadableStream === false) {
-	//  			reject('>>>>>>>>>> streamToString Promise rejected');
-	//  		}
-
-	//  		let text = '';
-	//  		const decoder = new TextDecoder('utf-8');
-	//  		const reader = stream.getReader();
-
-	//  		const processRead = ({ done, value }) => {
-	//  			if (done) {
-	//  				console.log('>>>>>>>>>> streamToString > done');
-	//  				resolve(text);
-	//  				return;
-	//  			}
-
-	//  			// decodes the input (encoded data) and returns a string
-	//  			text += decoder.decode(value);
-	//  			reader.read().then(processRead);
-	//  		};
-
-	//  		reader.read().then(processRead);
-	//  	});
-	//  };
-
-	function filterRow(row) {
-		return row.metal_level === 'Silver';
-	}
-
-	function filterData(data) {
-		return data.filter(filterRow);
-	}
-
-	// =======================================================
+	const doLoadAboutCSV = async () => {
+		try {
+			await dispatch(loadAboutCSV());
+		} catch (err) {
+			setDispatchError(err);
+			throw new Error("Error fetching data");
+		}
+	};
 
 	useEffect(() => {
-			// below works requesting CSVs from AWS S3
-			//	async function promiseAllReturnString(dataPlansBody, dataZipsBody, dataSlcspBody) {
-			//	
-			//		const [dataPlansString, dataZipsString, dataSlcspString] = await Promise.all([
-			//			streamToString(dataPlansBody),
-			//			streamToString(dataZipsBody),
-			//			streamToString(dataSlcspBody),
-			//		]);
-			//	
-			//		await papa.parse(dataPlansString, {
-			//			delimiter: ',',
-			//			header: true,
-			//			complete: (res) => {
-			//				const filterPlans = filterData(res.data);
-			//				setResponsePLANS(filterPlans);
-			//			}
-			//		});
-			//	
-			//		await papa.parse(dataZipsString, { 
-			//			delimiter: ',',
-			//			header: true,
-			//			complete: (res) => {
-			//				setResponseZIPS(res.data);
-			//			}
-			//		});
-			//	
-			//		await papa.parse(dataSlcspString, { 
-			//			delimiter: ',',
-			//			header: true,
-			//			complete: (res) => {
-			//				setResponseSLCSP(res.data);
-			//			}
-			//		});
-			//	}
-			
-			//	async function promiseAllClientSend() {
-			//		const [dataPlans, dataZips, dataSlcsp] = await Promise.all([
-			//			client.send(commandPlans),
-			//			client.send(commandZips),
-			//			client.send(commandSlcsp),
-			//		]);
-			//		promiseAllReturnString(dataPlans.Body, dataZips.Body, dataSlcsp.Body);
-			//	}
-
-			//	if (responseSLCSP === '') {
-			//		promiseAllClientSend();
-			//	}
-
-			// =======================================================
-
-			if (responseSLCSP === '') {
-				fetch('/plans.csv')
-					.then(res => {
-						return res.text()
-					})
-					.then(textPlans  => {
-						papa.parse(textPlans, {
-							delimiter: ',',
-							header: true,
-							complete: (res) => {
-								const filterPlans = filterData(res.data);
-								setResponsePLANS(filterPlans);
-							}
-						});
-						return fetch('/zips.csv')
-					})
-					.then(res => res.text())
-					.then(textZips  => {
-						papa.parse(textZips, { delimiter: ',', header: true, complete: (res) => setResponseZIPS(res.data) });
-						return fetch('/slcsp.csv')
-					})
-					.then(res => res.text())
-					.then(textSlcsp  => {
-						papa.parse(textSlcsp, { delimiter: ',', header: true, complete: (res) => setResponseSLCSP(res.data) });
-					})
-					.catch(error => {
-						console.error(error)
-					})
+			if (!data) {
+				doLoadAboutCSV()
 			}
-			//	=======================================================================
-			if (responseSLCSP !== '') {
-				// remove all empty rows in 'slcsp.csv'
-				const responsedSLCSP = responseSLCSP.filter(slcsp => !isNaN(parseInt(slcsp.zipcode)));
-			
-				// for each zip in 'slcsp.csv', apply function calculateSLCSP()
-				responsedSLCSP.forEach(calculateSLCSP);
-			
-				function calculateSLCSP(value, index, array) {
-			
-					// grab all 'zips.csv' objects matching the 'slcsp.csv' zip
-					const matchingZipObjectsArray = responseZIPS.filter(zip => {
-						return zip.zipcode === value.zipcode;
-					});
-			
-					// create array of all rate_area's to evaluate more than one rate area
-					const rateAreasArray = matchingZipObjectsArray.map(rate => rate.rate_area);
-			
-					// A ZIP code can also be in more than one rate area
-					// data structure Set() will indicate which zip spans multiple rate areas
-					const rateAreasDuplicatesArray = [...new Set(rateAreasArray)];
-			
-					//  In that case (rateAreasDuplicatesArray.length > 1), the answer is ambiguous and should be left blank
-					if (rateAreasDuplicatesArray.length === 1) {
-						const filteredStateRatePlansArray = responsePLANS.filter(calculateSilverStateRateAreas);
-			
-						function calculateSilverStateRateAreas(value, index) {
-							return (value.state === matchingZipObjectsArray[0].state) && (value.rate_area === matchingZipObjectsArray[0].rate_area);
-						}
-			
-						// evaluate slcsp if more than on silver plan available
-						if (filteredStateRatePlansArray.length > 2) {
-							filteredStateRatePlansArray.sort((a, b) => a.rate - b.rate);
-							const jp = JSON.parse(filteredStateRatePlansArray[1].rate)
-							const tf = jp.toFixed(2);
-							value.rate = tf;
-						}
-					}
-				}
-				const calcSLCSP = papa.unparse(responsedSLCSP);
-				console.log('-------------------')
-				console.log(calcSLCSP);
-				setCalculatedSLCSP(calcSLCSP);
-			}
-
-			//	if (responseSLCSP === '') {
-			//		fetch('/calculatedSLCSP.csv')
-			//			.then(res => res.text())
-			//			.then(data  => {
-			//				setResponseSLCSP(data)
-			//			})
-			//			.catch(error => {
-			//				console.error(error)
-			//			})
-			//	}
 		},
-		[responseSLCSP,]
+		[data]
 	);
 
 	return (
@@ -246,12 +73,22 @@ const AboutCSV = () => {
 
 				{/* ---------------------------------------------- */}
 
-				<div className="bg-color-ivory container-padding-border-radius-1 text-break mb-5">
+				<div className="bg-color-ivory container-padding-border-radius-1 word-break-all mb-5">
 
-					{calculatedSLCSP !== '' && (
+					{loading && <Loading text="Loading" />}
+
+					{/* (>>>>>>>>>>>>>>>>>>>>>> ERROR >>>>>>>>>>>>>>>>>>>>>>>>) */}
+					{error && (
+						<div>
+							<div>{`${errorResponse.error.message}`}</div>
+						</div>
+					)}
+
+					{/* (>>>>>>>>>>>>>>>>>>>>>>>> LOADED >>>>>>>>>>>>>>>>>>>>>>>>) */}
+					{(!loading && !error) && (
 						<div>
 							<div>
-								<pre>{calculatedSLCSP}</pre>
+								<pre>{data && data.result.data}</pre>
 							</div>
 						</div>
 					)}
