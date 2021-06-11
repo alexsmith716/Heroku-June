@@ -18,14 +18,22 @@ const AboutCSV = () => {
 	const data = useSelector((state) => state.aboutCSV.data);
 	const [dispatchError, setDispatchError] = useState(null);
 
-	const doLoadAboutCSV = async () => {
-		try {
-			await dispatch(loadAboutCSV());
-		} catch (err) {
-			setDispatchError(err);
-			throw new Error("Error fetching data");
-		}
-	};
+  //  const doLoadAboutCsv = async () => {
+  //    try {
+  //      await dispatch(loadAboutCSV());
+  //    } catch (err) {
+  //      setDispatchError(err);
+  //      throw new Error("Error fetching data");
+  //    }
+  //  };
+
+  const doLoadAboutCsv = () => {
+    dispatch(loadAboutCSV())
+    .catch(error => {
+      setDispatchError(err);
+      throw new Error("Error fetching data");
+    })
+  };
 
 	useEffect(() => {
 			if (!data) {
