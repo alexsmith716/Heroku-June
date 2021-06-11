@@ -24,7 +24,7 @@ export const initialState: State = {
 
 type LoadActions = {
 	types: string[];
-	promise: () => Promise<{ time: any; delay: any; message: any; status: any }>;
+	promise: () => Promise<any>;
 };
 
 export const reducer = (state: State = initialState, action: Actions): State => {
@@ -65,9 +65,6 @@ export function isInfoAlertThreeLoaded(storeState: State): boolean {
 export function loadInfoAlertThree(): LoadActions {
 	return {
 		types: [LOAD, LOAD_SUCCESS, LOAD_FAIL],
-		promise: () =>
-			postRequestConcatExportASYNC('resolve', true, 110, null).then((result: any) => {
-				return result;
-			}),
+		promise: () => postRequestConcatExportASYNC('resolve', true, 110, null),
 	};
 }

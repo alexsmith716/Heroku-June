@@ -3,6 +3,7 @@ import { reducer as info, State as InfoState } from './modules/info';
 import { reducer as infoAlert, State as InfoAlertState } from './modules/infoAlert';
 import { reducer as infoAlertThree, State as InfoAlertThreeState } from './modules/infoAlertThree';
 import { reducer as theme, State as ThemeState } from './modules/theme';
+import { reducer as aboutCSV, State as AboutCSVState } from './modules/aboutCSV';
 
 export function rootReducer()  {
 	return {
@@ -12,5 +13,6 @@ export function rootReducer()  {
 		infoAlert,
 		infoAlertThree,
 		theme,
-	};
+		aboutCSV,
+	}
 }
