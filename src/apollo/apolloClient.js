@@ -21,7 +21,20 @@ export function apolloClient({ uri, ssrMode = false }) {
 		fetch: fetch,
 	});
 
+	const errorLink = onError(({ graphQLErrors, networkError, }) => {
+		if (graphQLErrors) {
+			graphQLErrors.map(({ message, locations, path }) => 
+				console.error('[GraphQL error]: Message: ', message, ' Location: ',  JSON.stringify(locations), ' Path: ', JSON.stringify(path)),
+			);
+		}
+
+		if (networkError) {
+			console.error(`[Network error]: ${networkError}`);
+		}
+	});
+
 	const link = ApolloLink.from([
+		errorLink,
 		httpLink,
 	]);
 

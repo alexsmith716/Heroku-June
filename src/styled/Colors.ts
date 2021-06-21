@@ -41,4 +41,6 @@ export const colors = {
 	darkorange: '#cd6600',
 	mediumblue: '#0000cd',
 	carrot: '#ed9121',
+	khaki: '#eee685',
+	lightsteelblue: '#cae1ff',
 };

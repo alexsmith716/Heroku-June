@@ -4,7 +4,8 @@ import {
 } from '@apollo/client';
 
 import Button from '../Button';
-import { Thumbnail, ThumbnailImage } from '../../styles';
+import { Thumbnail } from '../../styles';
+import { BookDescription } from './styled';
 import { READ_BOOK_FAVORITE } from '../../graphql/queries/queries.js';
 
 export const GoogleBookBook = ({ book }) => {
@@ -21,8 +22,6 @@ export const GoogleBookBook = ({ book }) => {
 
 	useEffect(() => {
 			if (readBookFavorite) {
-				//	console.log('>>>>>>>>>>>>> GoogleBookBook > useEffect > readBookFavorite: ', readBookFavorite);
-
 				const { googleBooks: { favorite }} = readBookFavorite;
 
 				client.cache.modify({
@@ -49,7 +48,7 @@ export const GoogleBookBook = ({ book }) => {
 						{book.smallThumbnail
 							?
 							<div>
-								<ThumbnailImage src={upgradeThumbnailURL(book.smallThumbnail)} alt={book.title}/>
+								<img src={upgradeThumbnailURL(book.smallThumbnail)} alt={book.title} />
 							</div>
 							:
 							<div><i>Image not found</i></div>
@@ -80,16 +79,16 @@ export const GoogleBookBook = ({ book }) => {
 				<div><b>Favorite:&nbsp;</b>{book.favorite ? <i>true</i> : <i>false</i>}</div>
 
 				{book.description &&
-					<>
-						<div className={!toggleDescriptionView ? 'text-overflow-ellipsis' : ''}>
-							{book.description}
+					<BookDescription>
+						<div className={`${!toggleDescriptionView ? 'text-overflow-ellipsis' : ''}`}>
+							<div dangerouslySetInnerHTML={{ __html: book.description }} />
 						</div>
 						<Button
 							className="btn-light btn-tiny"
 							onClick={() => setToggleDescriptionView(!toggleDescriptionView)}
 							buttonText={toggleDescriptionView ? "<< Less" : "More >>"}
 						/>
-					</>
+					</BookDescription>
 				}
 			</div>
 		</div>

@@ -9,9 +9,10 @@ import {
 	gql,
 } from '@apollo/client';
 
+import { Loading } from '../../components/Loading';
 import Button from '../../components/Button';
 import { GoogleBookBook, } from '../../components/GoogleBookBook';
-import { GET_GOOGLE_BOOKS, GET_GOOGLE_BOOK, GET_GOOGLE_BOOKS_CURRENT_SEARCH_STRING } from '../../graphql/queries/queries.js';
+import { GET_GOOGLE_BOOKS, GET_GOOGLE_BOOK, } from '../../graphql/queries/queries.js';
 import { reactiveVariableMutations } from '../../graphql/operations/mutations';
 import { googleBooksCurrentSearchStringVar } from '../../apollo/apolloClient';
 
@@ -23,29 +24,25 @@ const RESTfulExample = () => {
 
 	const { setGoogleBooksCurrentSearchStringVar } = reactiveVariableMutations;
 	const [googleBooksSearchInput, setGoogleBooksSearchInput] = useState('');
+	const [googleBookSearchInput, setGoogleBookSearchInput] = useState('');
 	const [componentDidMount, setComponentDidMount] = useState(false);
+	const [queryError, setQueryError] = useState(null);
+
 	const currentSearchStringReactiveVar = useReactiveVar(googleBooksCurrentSearchStringVar);
 
-	//  const {
-	//      loading: currentSearchStringLOADING, 
-	//      error: currentSearchStringERROR,
-	//      data: currentSearchStringDATA,
-	//      previousData: currentSearchStringPreviousDATA,
-	//    } = useQuery(
-	//      GET_GOOGLE_BOOKS_CURRENT_SEARCH_STRING,
-	//  );
-
 	const onCompleted = () => {
-		//console.log('>>>>>>>>>>>>>>>>>>>>>>>> RESTfulExample > QUERY > Completed ++++++++++++++++++++');
+		console.log('>>>>>>>>>>>>>>>>>>>>>>>> RESTfulExample > QUERY > Completed ++++++++++++++++++++');
 	};
 
+	// i've completely re-coded all the apollo query & refetch logic (next push) -no more reactiveVars!
+
 	const [getGoogleBooks, {
-			loading, 
-			error,
+			loading: googleBooksLOADING,
+			error: googleBooksERROR,
 			data: googleBooksDATA,
-			previousData: googleBooksPreviousData,
-			refetch,
-			fetchMore: fetchMore,
+			previousData: googleBooksPREVIOUSDATA,
+			refetch: googleBooksREFETCH,
+			fetchMore: googleBooksFETCHMORE,
 			networkStatus,
 			called,
 		}] = useLazyQuery(
@@ -59,9 +56,11 @@ const RESTfulExample = () => {
 			}
 	);
 
+	// will be using data-normalization for the "getGoogleBook" modal view
+	// https://github.com/apollographql/apollo-client/blob/main/docs/source/caching/cache-configuration.mdx#data-normalization
 	const [getGoogleBook, {
-			loading: googleBookLoading, 
-			error: googleBookError,
+			loading: googleBookLOADING, 
+			error: googleBookERROR,
 			data: googleBookDATA,
 		}] = useLazyQuery(
 			GET_GOOGLE_BOOK,
@@ -73,7 +72,7 @@ const RESTfulExample = () => {
 			}
 
 			if (componentDidMount) {
-				// console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ComponentDidMount >>>>>>>>>>>>>>>>>>>>');
+				console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ComponentDidMount >>>>>>>>>>>>>>>>>>>>');
 			}
 		},
 		[componentDidMount,]
@@ -89,7 +88,7 @@ const RESTfulExample = () => {
 					}
 
 					if (googleBooksDATA) {
-						refetch({ searchString: currentSearchStringVar });
+						googleBooksREFETCH({ searchString: currentSearchStringVar });
 					}
 				}
 			}
@@ -103,6 +102,18 @@ const RESTfulExample = () => {
 			}
 		},
 		[toggleCacheView, googleBooksDATA]
+	);
+
+	useEffect(() => {
+			setQueryError(googleBooksERROR)
+		},
+		[googleBooksERROR]
+	);
+
+	useEffect(() => {
+			setQueryError(googleBookERROR);
+		},
+		[googleBookERROR]
 	);
 
 	return (
@@ -125,35 +136,23 @@ const RESTfulExample = () => {
 							<h5>getGoogleBooks Data:</h5>
 						</div>
 
-						{networkStatus === NetworkStatus.refetch && (
-							<p>
-								Refetching...
-							</p>
-						)}
+						{googleBooksLOADING &&
+							<div className="bg-progress-blue container-padding-radius-10 text-color-white overflow-wrap-break-word mb-3">
+								<Loading text="Loading" />
+							</div>
+						}
 
-						{loading && (
-							<p>
-								Loading...
-							</p>
-						)}
+						{googleBookLOADING &&
+							<div className="bg-progress-blue container-padding-radius-10 text-color-white overflow-wrap-break-word mb-3">
+								<Loading text="Loading" />
+							</div>
+						}
 
-						{googleBookLoading && (
-							<p>
-								Loading...
-							</p>
-						)}
-
-						{error && (
-							<b>
-								Query Error: {error.message}
-							</b>
-						)}
-
-						{googleBookError && (
-							<b>
-								Query Error: {googleBookError.message}
-							</b>
-						)}
+						{queryError &&
+							<div className="bg-warn-red container-padding-radius-10 text-color-white overflow-wrap-break-word mb-3">
+								{queryError.message}
+							</div>
+						}
 
 						{googleBooksDATA && (
 							<div>
@@ -193,59 +192,55 @@ const RESTfulExample = () => {
 						/>
 					</div>
 
-					{googleBooksDATA && (
-						<div className="mb-3">
-							<Button
-								type="button"
-								className="btn-success btn-md"
-								onClick={() => refetch()}
-								buttonText="RefetchQueryResults"
-							/>
+					<div className="mb-3">
+						<Button
+							type="button"
+							className="btn-success btn-md"
+							onClick={() => setGoogleBooksCurrentSearchStringVar({currentSearchString: 'nonfiction'})}
+							buttonText="Search nonfiction books"
+						/>
+					</div>
+
+					<div className="mb-3">
+						<Button
+							type="button"
+							className="btn-success btn-md"
+							onClick={() => setGoogleBooksCurrentSearchStringVar({currentSearchString: 'cooking'})}
+							buttonText="Search cooking books"
+						/>
+					</div>
+
+					<div className="mb-3">
+						<Button
+							type="button"
+							className="btn-success btn-md"
+							onClick={() => setGoogleBooksCurrentSearchStringVar({currentSearchString: 'programming'})}
+							buttonText="Search programming books"
+						/>
+					</div>
+
+					<div className="mb-3">
+						<div className="row-flex">
+							<div className="col-four">
+								<input
+									type="text"
+									className="form-control"
+									name="googleBookSearchInput"
+									value={googleBookSearchInput}
+									onChange={e => setGoogleBookSearchInput(e.target.value)}
+									placeholder="Enter volume ID"
+								/>
+							</div>
 						</div>
-					)}
-
-					<div className="mb-3">
-						<Button
-							type="button"
-							className="btn-success btn-md"
-							onClick={ () => getGoogleBook({ variables: { id: 'uW_zzQEACAAJ' }}) }
-							buttonText="Get Book ID: uW_zzQEACAAJ"
-						/>
 					</div>
 
 					<div className="mb-3">
 						<Button
 							type="button"
 							className="btn-success btn-md"
-							onClick={() => {console.log(googleBooksCurrentSearchStringVar())} }
-							buttonText="Reade RV"
-						/>
-					</div>
-
-					<div className="mb-3">
-						<Button
-							type="button"
-							className="btn-success btn-md"
-							onClick={() => setGoogleBooksCurrentSearchStringVar({currentSearchString: 'kaplan usmle'})}
-							buttonText="RV usmle"
-						/>
-					</div>
-
-					<div className="mb-3">
-						<Button
-							type="button"
-							className="btn-success btn-md"
-							onClick={() => setGoogleBooksCurrentSearchStringVar({currentSearchString: 'kaplan mcat'})}
-							buttonText="RV mcat"
-						/>
-					</div>
-
-					<div className="mb-3">
-						<Button
-							type="button"
-							className="btn-success btn-md"
-							onClick={() => setGoogleBooksCurrentSearchStringVar({currentSearchString: 'kaplan lsat'})}
-							buttonText="RV lsat"
+							onClick={() => getGoogleBook()}
+							onClick={ () => getGoogleBook({ variables: { id: googleBookSearchInput }}) }
+							buttonText="Get Google Book by volume ID"
 						/>
 					</div>
 
@@ -279,7 +274,7 @@ const RESTfulExample = () => {
 								type="button"
 								className="btn-primary btn-md"
 								onClick={ async () => {
-									await fetchMore({
+									await googleBooksFETCHMORE({
 										variables: {
 											after: googleBooksDATA.googleBooks.cursor,
 										},

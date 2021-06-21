@@ -28,7 +28,8 @@ export const resolvers = {
 					books,
 				};
 			} catch (error) {
-				return false;
+				console.error(error);
+				throw new Error(error);
 			}
 		},
 
@@ -37,7 +38,8 @@ export const resolvers = {
 				const book = await dataSources.googleBooks.getBook({ id });
 				return book;
 			} catch (error) {
-				return false;
+				console.error(error);
+				throw new Error(error);
 			}
 		},
 

@@ -31,7 +31,8 @@ export class GoogleBooksAPI extends RESTDataSource {
 			const reducedResponse = Array.isArray(response.items) ? response.items.map(book => this.bookReducer(book)) : [];
 			return reducedResponse;
 		} catch (error) {
-			return false;
+			console.log(error);
+			throw new Error(error);
 		}
 	}
 
@@ -42,7 +43,8 @@ export class GoogleBooksAPI extends RESTDataSource {
 			const reducedResponse = this.bookReducer(response);
 			return reducedResponse;
 		} catch (error) {
-			return false;
+			console.log(error);
+			throw new Error(error);
 		}
 	}
 };

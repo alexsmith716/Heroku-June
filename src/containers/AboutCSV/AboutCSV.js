@@ -21,8 +21,8 @@ const AboutCSV = () => {
 	//	const doLoadAboutCSV = async () => {
 	//		try {
 	//			await dispatch(loadAboutCSV());
-	//		} catch (err) {
-	//			setDispatchError(err);
+	//		} catch (error) {
+	//			setDispatchError(error);
 	//			throw new Error("Error fetching data");
 	//		}
 	//	};
@@ -30,7 +30,7 @@ const AboutCSV = () => {
 	const doLoadAboutCSV = () => {
 		dispatch(loadAboutCSV())
 			.catch(error => {
-				setDispatchError(err);
+				setDispatchError(error);
 				throw new Error("Error fetching data");
 			})
 	};
