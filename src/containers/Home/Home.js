@@ -11,21 +11,21 @@ const Home = () => {
 
 			<Styles.Masthead className="mb-5">
 				<div className="container">
-					<Styles.MastheadHeadingOne>App 2022</Styles.MastheadHeadingOne>
+					<Styles.MastheadHeadingOne>Just Another App</Styles.MastheadHeadingOne>
 
 					<Styles.MastheadHeadingTwo>
-						The Midterms are right around the corner!
+						Just Another App Masthead Heading!
 					</Styles.MastheadHeadingTwo>
 
-					<Styles.MastheadBlurb>What are you and others saying?</Styles.MastheadBlurb>
+					<Styles.MastheadBlurb>Just Another App Masthead Blurb</Styles.MastheadBlurb>
 
-					<Styles.MastheadBlurbElipsis>... join the conversation.</Styles.MastheadBlurbElipsis>
+					<Styles.MastheadBlurbElipsis>... check it out today.</Styles.MastheadBlurbElipsis>
 
 					<Styles.MastheadButton
 						className="btn-success"
 						onClick={() => false}
 						type="button"
-						buttonText="Sign Up Now 1 »"
+						buttonText="SPLASH BUTTON »"
 					/>
 	
 				</div>

@@ -20,11 +20,6 @@ export const NavBar: React.FC = () => {
 
 	useEffect(() => {
 		setActiveRoute(location.pathname);
-		return () => {
-			console.log(
-				'>>>>>>>>>>>>>>>>>>>>>>>> NavBar > useEffect() > componentWillUnmount > cleanup phase',
-			);
-		};
 	}, [location.pathname]);
 
 	const doThemeToggle = () => {
@@ -40,7 +35,7 @@ export const NavBar: React.FC = () => {
 						to="/"
 						onClick={() => setClicked(false)}
 					>
-						Election App
+						App Home
 					</Styles.NavBarBrandLink>
 
 					<Styles.NavBarNav clicked={clicked} className={clicked ? 'clicked' : ''}>

@@ -19,9 +19,4 @@ export const NavLinks = [
 		url: '/graphqlexample',
 		linkType: 'navLink',
 	},
-	{
-		title: 'GraphiQL',
-		url: '/graphiqlexample',
-		linkType: 'navLink',
-	},
 ];

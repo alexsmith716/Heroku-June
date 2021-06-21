@@ -7,7 +7,6 @@ import About from '../containers/About/Loadable';
 import AboutCSV from '../containers/AboutCSV/Loadable';
 import RESTfulExample from '../containers/RESTfulExample/Loadable';
 import GraphQLExample from '../containers/GraphQLExample/Loadable';
-import GraphiQLExample from '../containers/GraphiQLExample/Loadable';
 
 import { preloadData as preloadDataApp } from '../containers/App/preloadData';
 import { preloadData as preloadDataAbout } from '../containers/About/preloadData';
@@ -47,11 +46,6 @@ const routes = [
 						path: '/graphqlexample',
 						exact: true,
 						component: GraphQLExample,
-					},
-					{
-						path: '/graphiqlexample',
-						exact: true,
-						component: GraphiQLExample,
 					},
 					{
 						path: '*',

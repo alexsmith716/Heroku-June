@@ -185,15 +185,6 @@ const GraphQLExample = () => {
 					</div>
 
 					<div className="mb-3">
-						<Button
-							type="button"
-							className="btn-success btn-md"
-							onClick={() => {console.log(charactersCurrentSearchStringVar())} }
-							buttonText={"Read RV"}
-						/>
-					</div>
-
-					<div className="mb-3">
 						<div className="row-flex">
 							<div className="col-four">
 								<input

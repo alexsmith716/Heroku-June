@@ -146,14 +146,14 @@ export const GlobalStyle = createGlobalStyle`
 
 	// ========================================
 
-	.cardContainerGrid {
+	.card-container-grid {
 		display: grid;
 		grid-template-columns: repeat(3, auto);
 		grid-gap: 1.5rem;
 	}
 
 	@media screen and (max-width: 992px) {
-		.cardContainerGrid {
+		.card-container-grid {
 			grid-template-columns: 1fr;
 		}
 	}
@@ -200,6 +200,11 @@ export const GlobalStyle = createGlobalStyle`
 		padding: 10px 10px;
 		border: 2px solid #b0c4de;
 		border-radius: 3px;
+	}
+
+	.container-padding-radius-10 {
+		padding: 10px 10px;
+		border-radius: 10px;
 	}
 
 	// ========================================
@@ -312,15 +317,10 @@ export const GlobalStyle = createGlobalStyle`
 		display: flex;
 		flex-direction: column;
 		min-width: 0;
-		word-wrap: break-word;
 		background-color: #fff;
 		background-clip: border-box;
 		border: 1px solid rgba(0, 0, 0, 0.125);
 		border-radius: 0.25rem;
-	}
-
-	.card {
-		word-wrap: break-word;
 	}
 
 	.card-body {
@@ -691,6 +691,22 @@ export const GlobalStyle = createGlobalStyle`
 
 	// ========================================
 
+	.text-color-white {
+		color: #fff;
+	}
+
+	// ========================================
+
+	.bg-progress-blue {
+		opacity: .80;
+		background-color: #17a2b8;
+	}
+
+	.bg-warn-red {
+		opacity: .80;
+		background-color: #dc3545;
+	}
+
 	.bg-lightskyblue-1 {
 		background-color: #b0e2ff;
 	}
@@ -757,5 +773,127 @@ export const GlobalStyle = createGlobalStyle`
 
 	.bg-color-cadetblue {
 		background-color: #8ee5ee;
+	}
+
+	// ========================================
+
+	.row-color-odd {
+		background-color: ${colors.grayOne};
+	}
+
+	.row-color-even {
+		background-color: ${colors.grayThree};
+	}
+
+	@media screen and (max-width: 992px) {
+
+		.collection-container {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			grid-gap: 20px;
+		}
+
+		.collection-container > li:first-child {
+			display: none;
+		}
+
+		.attribute::before {
+			border-right: 1px solid gray;
+			content: attr(data-name);
+		}
+
+		.attribute {
+			border-left: 1px solid gray;
+			border-right: 1px solid gray;
+			border-bottom: 1px solid gray;
+			padding-left: 2px;
+			display: grid;
+			gap: 2px;
+			grid-template-columns: minmax(9em, 30%) 1fr;
+		}
+
+		.item > div:first-of-type {
+			border-top: 1px solid gray;
+		}
+	}
+
+	@media screen and (max-width: 575px) {
+
+		.collection-container {
+			display: grid;
+			grid-template-columns: 1fr;
+		}
+	}
+
+	@media screen and (min-width: 993px) {
+
+		.item-container {
+			display: grid;
+			grid-template-columns: 2em 2em 10fr 2fr 2fr 2fr 2fr 5em 5em;
+		}
+
+		.attribute-container {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(var(--column-width-min), 1fr));
+		}
+
+		.part-information {
+			--column-width-min: 10em;
+		}
+
+		.part-id {
+			--column-width-min: 10em;
+		}
+
+		.vendor-information {
+			--column-width-min: 8em;
+		}
+
+		.quantity {
+			--column-width-min: 5em;
+		}
+
+		.cost {
+			--column-width-min: 5em;
+		}
+
+		.duty {
+			--column-width-min: 5em;
+		}
+
+		.freight {
+			--column-width-min: 5em;
+		}
+
+		.collection {
+			border-top: 1px solid gray;
+			border-left: 1px solid gray;
+		}
+
+		.attribute {
+			border-right: 1px solid gray;
+			border-bottom: 1px solid gray;
+			padding-left: 2px;
+			overflow: hidden;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+		}
+
+		.collection-container>.item-container:first-child {
+			background-color: ${colors.khaki};
+		}
+
+		.item-container:hover {
+			background-color: ${colors.lightsteelblue};
+		}
+
+		.collection-container>.item-container:first-child .attribute {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			text-overflow: initial;
+			overflow: auto;
+			white-space: normal;
+		}
 	}
 `;
