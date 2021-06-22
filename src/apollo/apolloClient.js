@@ -111,7 +111,7 @@ export function apolloClient({ uri, ssrMode = false }) {
 		link,
 		cache,
 		ssrMode,
-		//	queryDeduplication: false,
+		// queryDeduplication: false,
 		defaultOptions: {
 			watchQuery: {
 				// fetchPolicy: 'cache-and-network',

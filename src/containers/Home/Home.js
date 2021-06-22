@@ -34,7 +34,7 @@ const Home = () => {
 			{/* ---------------------------------------------- */}
 
 			<div className="container">
-				<div className={`mb-5 cardContainerGrid`}>
+				<div className={`mb-5 card-container-grid`}>
 					<div className="container-padding-border-radius-2">
 						<div>
 							<h4>Card Title 1</h4>
