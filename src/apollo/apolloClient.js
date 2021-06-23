@@ -69,11 +69,16 @@ export function apolloClient({ uri, ssrMode = false }) {
 							}
 							if (incoming && incoming.books) {
 								books = books.concat(incoming.books);
+								return {
+									...incoming,
+									books,
+								};
 							}
-							return {
-								...incoming,
-								books,
-							};
+							if (!incoming) {
+								return {
+									books,
+								};
+							}
 						}
 					},
 					// --------------------------------------
@@ -111,19 +116,19 @@ export function apolloClient({ uri, ssrMode = false }) {
 		link,
 		cache,
 		ssrMode,
-		// queryDeduplication: false,
-		defaultOptions: {
-			watchQuery: {
-				// fetchPolicy: 'cache-and-network',
-				errorPolicy: 'all',
-			},
-			query: {
-				// fetchPolicy: 'cache-and-network',
-				errorPolicy: 'all',
-			},
-			mutate: {
-				errorPolicy: 'all',
-			},
-		},
+		//	queryDeduplication: true, // default
+		//	defaultOptions: {
+		//		watchQuery: {
+		//			// fetchPolicy: 'cache-and-network',
+		//			errorPolicy: 'all',
+		//		},
+		//		query: {
+		//			// fetchPolicy: 'cache-and-network',
+		//			errorPolicy: 'all',
+		//		},
+		//		mutate: {
+		//			errorPolicy: 'all',
+		//		},
+		//	},
 	});
 }
