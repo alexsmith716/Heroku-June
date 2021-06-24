@@ -12,7 +12,7 @@ import {
 import { Loading } from '../../components/Loading';
 import Button from '../../components/Button';
 import { GoogleBookBook, } from '../../components/GoogleBookBook';
-import { GET_GOOGLE_BOOKS, GET_GOOGLE_BOOK, } from '../../graphql/queries/queries.js';
+import { GET_GOOGLE_BOOKS, GET_GOOGLE_BOOK, GET_GOOGLE_BOOKS_CURRENT_SEARCH_STRING } from '../../graphql/queries/queries.js';
 import { reactiveVariableMutations } from '../../graphql/operations/mutations';
 import { googleBooksCurrentSearchStringVar } from '../../apollo/apolloClient';
 
@@ -22,42 +22,62 @@ const RESTfulExample = () => {
 	const [clientExtract, setClientExtract] = useState(null);
 	const [toggleCacheView, setToggleCacheView] = useState(false);
 
-	const { setGoogleBooksCurrentSearchStringVar } = reactiveVariableMutations;
-	const [googleBooksSearchInput, setGoogleBooksSearchInput] = useState('');
-	const [googleBookSearchInput, setGoogleBookSearchInput] = useState('');
-	const [componentDidMount, setComponentDidMount] = useState(false);
+	const [currentGoogleBooksCursor, setCurrentGoogleBooksCursor] = useState('');
+	const [googleBooksFetchMoreError, setGoogleBooksFetchMoreError] = useState(false);
 	const [queryError, setQueryError] = useState(null);
 
+	const { setGoogleBooksCurrentSearchStringVar } = reactiveVariableMutations;
+	const [googleBooksSearchInput, setGoogleBooksSearchInput] = useState('');
+	const [componentDidMount, setComponentDidMount] = useState(false);
 	const currentSearchStringReactiveVar = useReactiveVar(googleBooksCurrentSearchStringVar);
 
-	const onCompleted = () => {
+	const [readQueryGetGoogleBooks, setReadQueryGetGoogleBooks] = useState(null);
+
+	const [lastOnCompleted, setLastOnCompleted] = useState(null);
+
+	const onCompleted = (data) => {
+
 		console.log('>>>>>>>>>>>>>>>>>>>>>>>> RESTfulExample > QUERY > Completed ++++++++++++++++++++');
+
+		setLastOnCompleted(currentSearchStringReactiveVar.currentSearchString)
+		setQueryError(null)
+
+		if (data.googleBooks.cursor === currentGoogleBooksCursor) {
+			setGoogleBooksFetchMoreError(true);
+		}
+		if (data.googleBooks.cursor !== currentGoogleBooksCursor) {
+			setGoogleBooksFetchMoreError(false);
+		}
+		setCurrentGoogleBooksCursor(data.googleBooks.cursor)
 	};
 
-	// i've completely re-coded all the apollo query & refetch logic (next push) -no more reactiveVars!
+	const onError = (error) => {
+		console.log('>>>>>>>>>>>>>>>>>>>>>>>> RESTfulExample > QUERY > Error ++++++++++++++++++++');
+	}
 
 	const [getGoogleBooks, {
 			loading: googleBooksLOADING,
 			error: googleBooksERROR,
 			data: googleBooksDATA,
-			previousData: googleBooksPREVIOUSDATA,
+			previousData: googleBooksPreviousData,
 			refetch: googleBooksREFETCH,
-			fetchMore: googleBooksFETCHMORE,
+			fetchMore,
 			networkStatus,
 			called,
 		}] = useLazyQuery(
 			GET_GOOGLE_BOOKS,
 			{
+				fetchPolicy: 'cache-first',
+				errorPolicy: 'none',
 				variables: {
 					orderBy: 'newest',
 				},
 				notifyOnNetworkStatusChange: true,
 				onCompleted,
+				onError,
 			}
 	);
 
-	// will be using data-normalization for the "getGoogleBook" modal view
-	// https://github.com/apollographql/apollo-client/blob/main/docs/source/caching/cache-configuration.mdx#data-normalization
 	const [getGoogleBook, {
 			loading: googleBookLOADING, 
 			error: googleBookERROR,
@@ -67,15 +87,17 @@ const RESTfulExample = () => {
 	);
 
 	useEffect(() => {
-			if (!componentDidMount) {
-				setComponentDidMount(true);
-			}
-
-			if (componentDidMount) {
-				console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ComponentDidMount >>>>>>>>>>>>>>>>>>>>');
+			if (readQueryGetGoogleBooks) {
+				getGoogleBooks({ variables: { searchString: currentSearchStringReactiveVar.currentSearchStringCopy },});
 			}
 		},
-		[componentDidMount,]
+		[readQueryGetGoogleBooks]
+	);
+
+	useEffect(() => {
+			setReadQueryGetGoogleBooks(client.readQuery({ query: GET_GOOGLE_BOOKS, }))
+		},
+		[]
 	);
 
 	useEffect(() => {
@@ -105,25 +127,32 @@ const RESTfulExample = () => {
 	);
 
 	useEffect(() => {
-			setQueryError(googleBooksERROR)
+			if (googleBooksERROR) {
+				const c = currentSearchStringReactiveVar.currentSearchStringCopy;
+				setGoogleBooksCurrentSearchStringVar({currentSearchString: '', currentSearchStringCopy: c})
+				setQueryError(googleBooksERROR.message)
+			}
 		},
 		[googleBooksERROR]
 	);
 
 	useEffect(() => {
-			setQueryError(googleBookERROR);
+			if (googleBooksFetchMoreError) {
+				setQueryError('Error Fetching More Books!');
+			}
 		},
-		[googleBookERROR]
+		[googleBooksFetchMoreError]
 	);
+
+	function setQueryVars(searchVar) {
+		setGoogleBooksCurrentSearchStringVar({currentSearchString: searchVar, currentSearchStringCopy: searchVar})
+	}
 
 	return (
 		<>
 			<Helmet title="REST Example" />
 
-			{/* ---------------------------------------------- */}
-
 			<div className="container">
-				{/* ---------------------------------------------- */}
 
 				<h1 className="mt-4 mb-3">REST Example</h1>
 
@@ -150,7 +179,7 @@ const RESTfulExample = () => {
 
 						{queryError &&
 							<div className="bg-warn-red container-padding-radius-10 text-color-white overflow-wrap-break-word mb-3">
-								{queryError.message}
+								{queryError}
 							</div>
 						}
 
@@ -164,17 +193,6 @@ const RESTfulExample = () => {
 							</div>
 						)}
 
-						{googleBookDATA && googleBookDATA.googleBook && (
-							<div>
-								<div className="mb-3">
-									<h5>getGoogleBook Data:</h5>
-								</div>
-									<div key={googleBookDATA.googleBook.id} className="mb-3 container-padding-border-radius-2">
-										<GoogleBookBook book={ googleBookDATA.googleBook } />
-									</div>
-							</div>
-						)}
-
 						{clientExtract && (
 							<div className={!toggleCacheView ? 'text-overflow-ellipsis-one' : ''}>
 								<h5>ApolloClient Cache:</h5>
@@ -183,12 +201,14 @@ const RESTfulExample = () => {
 						)}
 					</div>
 
+					{/* ---------------------------------------------- */}
+
 					<div className="mb-3">
 						<Button
 							type="button"
 							className="btn-success btn-md"
-							onClick={() => setToggleCacheView(!toggleCacheView)}
-							buttonText={!clientExtract ? "View Apollo Cache" : "Toggle Cache View"}
+							onClick={() => setQueryVars('nonfiction')}
+							buttonText="nonfiction"
 						/>
 					</div>
 
@@ -196,8 +216,8 @@ const RESTfulExample = () => {
 						<Button
 							type="button"
 							className="btn-success btn-md"
-							onClick={() => setGoogleBooksCurrentSearchStringVar({currentSearchString: 'nonfiction'})}
-							buttonText="Search nonfiction books"
+							onClick={() => setQueryVars('cooking')}
+							buttonText="cooking"
 						/>
 					</div>
 
@@ -205,8 +225,8 @@ const RESTfulExample = () => {
 						<Button
 							type="button"
 							className="btn-success btn-md"
-							onClick={() => setGoogleBooksCurrentSearchStringVar({currentSearchString: 'cooking'})}
-							buttonText="Search cooking books"
+							onClick={() => setQueryVars('programming')}
+							buttonText="programming"
 						/>
 					</div>
 
@@ -214,33 +234,17 @@ const RESTfulExample = () => {
 						<Button
 							type="button"
 							className="btn-success btn-md"
-							onClick={() => setGoogleBooksCurrentSearchStringVar({currentSearchString: 'programming'})}
-							buttonText="Search programming books"
+							onClick={() => setQueryVars('gardening')}
+							buttonText="gardening"
 						/>
-					</div>
-
-					<div className="mb-3">
-						<div className="row-flex">
-							<div className="col-four">
-								<input
-									type="text"
-									className="form-control"
-									name="googleBookSearchInput"
-									value={googleBookSearchInput}
-									onChange={e => setGoogleBookSearchInput(e.target.value)}
-									placeholder="Enter volume ID"
-								/>
-							</div>
-						</div>
 					</div>
 
 					<div className="mb-3">
 						<Button
 							type="button"
 							className="btn-success btn-md"
-							onClick={() => getGoogleBook()}
-							onClick={ () => getGoogleBook({ variables: { id: googleBookSearchInput }}) }
-							buttonText="Get Google Book by volume ID"
+							onClick={() => setQueryVars('astronomy')}
+							buttonText="astronomy"
 						/>
 					</div>
 
@@ -268,19 +272,20 @@ const RESTfulExample = () => {
 						/>
 					</div>
 
-					{googleBooksDATA && (
+					{(googleBooksDATA && googleBooksDATA.googleBooks.cursor && lastOnCompleted) && (
 						<div className="mb-3">
 							<Button
 								type="button"
 								className="btn-primary btn-md"
 								onClick={ async () => {
-									await googleBooksFETCHMORE({
+									await fetchMore({
 										variables: {
-											after: googleBooksDATA.googleBooks.cursor,
+											searchString: lastOnCompleted,
+											after: currentGoogleBooksCursor,
 										},
 									});
 								}}
-								buttonText="fetchMore Google Books"
+								buttonText={`Fetch more ${lastOnCompleted} books`}
 							/>
 						</div>
 					)}
