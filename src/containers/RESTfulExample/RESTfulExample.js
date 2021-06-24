@@ -144,6 +144,14 @@ const RESTfulExample = () => {
 		[googleBooksFetchMoreError]
 	);
 
+	useEffect(() => {
+			if (googleBooksLOADING) {
+				setQueryError(null)
+			}
+		},
+		[googleBooksLOADING]
+	);
+
 	function setQueryVars(searchVar) {
 		setGoogleBooksCurrentSearchStringVar({currentSearchString: searchVar, currentSearchStringCopy: searchVar})
 	}
@@ -166,12 +174,6 @@ const RESTfulExample = () => {
 						</div>
 
 						{googleBooksLOADING &&
-							<div className="bg-progress-blue container-padding-radius-10 text-color-white overflow-wrap-break-word mb-3">
-								<Loading text="Loading" />
-							</div>
-						}
-
-						{googleBookLOADING &&
 							<div className="bg-progress-blue container-padding-radius-10 text-color-white overflow-wrap-break-word mb-3">
 								<Loading text="Loading" />
 							</div>
