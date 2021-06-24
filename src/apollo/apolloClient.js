@@ -21,15 +21,13 @@ export function apolloClient({ uri, ssrMode = false }) {
 		fetch: fetch,
 	});
 
-	const errorLink = onError(({ graphQLErrors, networkError, }) => {
+	const errorLink = onError(({ operation, response, graphQLErrors, networkError, forward }) => {
 		if (graphQLErrors) {
-			graphQLErrors.map(({ message, locations, path }) => 
-				console.error('[GraphQL error]: Message: ', message, ' Location: ',  JSON.stringify(locations), ' Path: ', JSON.stringify(path)),
-			);
+			console.error('>>> errorLink > graphQLErrors:', graphQLErrors[0].message)
 		}
 
 		if (networkError) {
-			console.error(`[Network error]: ${networkError}`);
+			console.error('>>>> apolloClient > [Network error]', networkError)
 		}
 	});
 
