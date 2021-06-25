@@ -127,10 +127,19 @@ const RESTfulExample = () => {
 	);
 
 	useEffect(() => {
+			if (googleBooksLOADING) {
+				setQueryError(null)
+			}
+		},
+		[googleBooksLOADING]
+	);
+
+	useEffect(() => {
 			if (googleBooksERROR) {
 				const c = currentSearchStringReactiveVar.currentSearchStringCopy;
 				setGoogleBooksCurrentSearchStringVar({currentSearchString: '', currentSearchStringCopy: c})
-				setQueryError(googleBooksERROR.message)
+				// setQueryError(googleBooksERROR.message)
+				setQueryError('NetworkError when attempting to fetch resource.')
 			}
 		},
 		[googleBooksERROR]
@@ -138,18 +147,10 @@ const RESTfulExample = () => {
 
 	useEffect(() => {
 			if (googleBooksFetchMoreError) {
-				setQueryError('Error Fetching More Books!');
+				setQueryError('NetworkError when attempting to fetch more resources.');
 			}
 		},
 		[googleBooksFetchMoreError]
-	);
-
-	useEffect(() => {
-			if (googleBooksLOADING) {
-				setQueryError(null)
-			}
-		},
-		[googleBooksLOADING]
 	);
 
 	function setQueryVars(searchVar) {
@@ -163,8 +164,6 @@ const RESTfulExample = () => {
 			<div className="container">
 
 				<h1 className="mt-4 mb-3">REST Example</h1>
-
-				{/* ---------------------------------------------- */}
 
 				<div className="bg-color-ivory container-padding-border-radius-1 overflow-wrap-break-word mb-5">
 					<div className="mb-3">
@@ -203,53 +202,6 @@ const RESTfulExample = () => {
 						)}
 					</div>
 
-					{/* ---------------------------------------------- */}
-
-					<div className="mb-3">
-						<Button
-							type="button"
-							className="btn-success btn-md"
-							onClick={() => setQueryVars('nonfiction')}
-							buttonText="nonfiction"
-						/>
-					</div>
-
-					<div className="mb-3">
-						<Button
-							type="button"
-							className="btn-success btn-md"
-							onClick={() => setQueryVars('cooking')}
-							buttonText="cooking"
-						/>
-					</div>
-
-					<div className="mb-3">
-						<Button
-							type="button"
-							className="btn-success btn-md"
-							onClick={() => setQueryVars('programming')}
-							buttonText="programming"
-						/>
-					</div>
-
-					<div className="mb-3">
-						<Button
-							type="button"
-							className="btn-success btn-md"
-							onClick={() => setQueryVars('gardening')}
-							buttonText="gardening"
-						/>
-					</div>
-
-					<div className="mb-3">
-						<Button
-							type="button"
-							className="btn-success btn-md"
-							onClick={() => setQueryVars('astronomy')}
-							buttonText="astronomy"
-						/>
-					</div>
-
 					<div className="mb-3">
 						<div className="row-flex">
 							<div className="col-four">
@@ -269,7 +221,12 @@ const RESTfulExample = () => {
 						<Button
 							type="button"
 							className="btn-success btn-md"
-							onClick={() => setGoogleBooksCurrentSearchStringVar({currentSearchString: googleBooksSearchInput})}
+							onClick={
+								() => {
+									setQueryError(null);
+									setQueryVars(googleBooksSearchInput);
+								}
+							}
 							buttonText="Get Google Books"
 						/>
 					</div>
