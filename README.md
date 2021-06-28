@@ -2,7 +2,7 @@
 
 ## Deprecation Notice
 
-Soon this app will be depreciated. Maintaining a boilerplate that evolves with ever-changing platforms, libraries, dev utilities... is unproductive. A [web application bundler](https://github.com/parcel-bundler/parcel) or [server-rendering framework](https://github.com/vercel/next.js) will speed-up my client-focused projects and therefore enable a better user and developer experience.
+Soon, this app will be depreciated. Maintaining a boilerplate that evolves with ever-changing platforms, libraries, dev utilities... is unproductive. A [web application bundler](https://github.com/parcel-bundler/parcel) or [server-rendering framework](https://github.com/vercel/next.js) will speed-up my client-focused projects and therefore enable a better user and developer experience.
 
 ----
 
@@ -49,6 +49,6 @@ The app is deployed here:
 
 ## Refactors:
 
-* logic for handling `readQueryGetGoogleBooks`, `getGoogleBooks` and `googleBooksREFETCH` can be refactored
+* logic for handling `readQueryGetGoogleBooks`, `getGoogleBooks` and `googleBooksREFETCH` *might* be refactored
 
 ## Fixes:

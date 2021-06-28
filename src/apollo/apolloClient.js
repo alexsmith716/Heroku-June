@@ -1,9 +1,11 @@
 import { ApolloClient, InMemoryCache, makeVar, createHttpLink, ApolloLink } from '@apollo/client';
+import { RetryLink } from "@apollo/client/link/retry";
 import { onError } from '@apollo/client/link/error';
 import fetch from 'node-fetch';
 
 const googleBooksCurrentSearchStringInit = {
 	currentSearchString: '',
+	currentSearchStringCopy: '',
 };
 
 const charactersCurrentSearchStringInit = {
@@ -21,7 +23,20 @@ export function apolloClient({ uri, ssrMode = false }) {
 		fetch: fetch,
 	});
 
-	const errorLink = onError(({ operation, response, graphQLErrors, networkError, forward }) => {
+	const testDataErrors = new ApolloLink((operation, forward) => {
+		operation.setContext({ start: new Date() });
+
+		return forward(operation).map((data) => {
+			const time = new Date() - operation.getContext().start;
+			if (data.errors) {
+				console.log('>>>> apolloClient > data.errors');
+			}
+			console.log(`>>>> apolloClient > ${operation.operationName} took ${time} to complete`);
+			return data;
+		});
+	});
+
+	const errorLink = onError(({ graphQLErrors, networkError }) => {
 		if (graphQLErrors) {
 			console.error('>>> errorLink > graphQLErrors:', graphQLErrors[0].message)
 		}
@@ -32,6 +47,7 @@ export function apolloClient({ uri, ssrMode = false }) {
 	});
 
 	const link = ApolloLink.from([
+		testDataErrors,
 		errorLink,
 		httpLink,
 	]);
