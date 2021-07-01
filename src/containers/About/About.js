@@ -25,10 +25,10 @@ const About = () => {
 					</div>
 
 					<div className="col-grid">
-						<h2>About Election App 2022</h2>
+						<h2>About Just Another App</h2>
 						<p><b>This component utilizes the CSS Grid Layout module.</b></p>
 						<p>
-							"Other than in Internet Explorer, CSS Grid Layout is unprefixed in Safari, Chrome, Opera,  Firefox and Edge. Support for all the properties and values detailed in these guides is interoperable across browsers. This means that if you write some Grid Layout code in Firefox, it should work in the same way in Chrome. This is no longer an experimental specification, and you are safe to use it in production."
+							"Other than in Internet Explorer, CSS Grid Layout is unprefixed in Safari, Chrome, Opera, Firefox and Edge. Support for all the properties and values detailed in these guides is interoperable across browsers. This means that if you write some Grid Layout code in Firefox, it should work in the same way in Chrome. This is no longer an experimental specification, and you are safe to use it in production."
 						</p>
 						<p>
 							CSS Grid Layout supporting browsers documented here: <span className="word-break-all"><b>"https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout/CSS_Grid_and_Progressive_Enhancement#the_supporting_browsers"</b></span>
@@ -100,7 +100,7 @@ const About = () => {
 					</div>
 
 					<div className="col-grid">
-						<h2>About Election App 2022</h2>
+						<h2>About Just Another App 2022</h2>
 						<p><b>This component utilizes the CSS Grid Layout module.</b></p>
 						<p>
 							Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe, magni, aperiam
@@ -130,7 +130,7 @@ const About = () => {
 					</div>
 
 					<div className="col-grid">
-						<h2>About Election App 2022</h2>
+						<h2>About Just Another App 2022</h2>
 						<p>
 							Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe, magni, aperiam
 							vitae illum voluptatum aut sequi impedit non velit ab ea pariatur sint quidem
@@ -144,7 +144,7 @@ const About = () => {
 					</div>
 
 					<div className="col-grid">
-						<h2>About Election App 2022</h2>
+						<h2>About Just Another App 2022</h2>
 						<p>
 							Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe, magni, aperiam
 							vitae illum voluptatum aut sequi impedit non velit ab ea pariatur sint quidem
@@ -158,7 +158,7 @@ const About = () => {
 					</div>
 
 					<div className="col-grid">
-						<h2>About Election App 2022</h2>
+						<h2>About Just Another App 2022</h2>
 						<p>
 							Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe, magni, aperiam
 							vitae illum voluptatum aut sequi impedit non velit ab ea pariatur sint quidem
@@ -167,7 +167,7 @@ const About = () => {
 					</div>
 
 					<div className="col-grid">
-						<h2>About Election App 2022</h2>
+						<h2>About Just Another App 2022</h2>
 						<p>
 							Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe, magni, aperiam
 							vitae illum voluptatum aut sequi impedit non velit ab ea pariatur sint quidem
@@ -176,7 +176,7 @@ const About = () => {
 					</div>
 
 					<div className="col-grid">
-						<h2>About Election App 2022xX</h2>
+						<h2>About Just Another App 2022xX</h2>
 						<p>
 							Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe, magni, aperiam
 							vitae illum voluptatum aut sequi impedit non velit ab ea pariatur sint quidem
@@ -225,7 +225,7 @@ const About = () => {
 					</div>
 
 					<div className="col-two">
-						<h2>About Election App 2022</h2>
+						<h2>About Just Another App 2022</h2>
 						<p><b>This component utilizes the CSS Flexible Box Layout module.</b></p>
 						<p>
 							Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe, magni, aperiam
@@ -255,7 +255,7 @@ const About = () => {
 					</div>
 
 					<div className="col-two">
-						<h2>About Election App 2022</h2>
+						<h2>About Just Another App 2022</h2>
 						<p>
 							Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe, magni, aperiam
 							vitae illum voluptatum aut sequi impedit non velit ab ea pariatur sint quidem
@@ -269,7 +269,7 @@ const About = () => {
 					</div>
 
 					<div className="col-two">
-						<h2>About Election App 2022</h2>
+						<h2>About Just Another App 2022</h2>
 						<p>
 							Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe, magni, aperiam
 							vitae illum voluptatum aut sequi impedit non velit ab ea pariatur sint quidem
@@ -283,7 +283,7 @@ const About = () => {
 					</div>
 
 					<div className="col-two">
-						<h2>About Election App 2022</h2>
+						<h2>About Just Another App 2022</h2>
 						<p>
 							Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe, magni, aperiam
 							vitae illum voluptatum aut sequi impedit non velit ab ea pariatur sint quidem
@@ -292,7 +292,7 @@ const About = () => {
 					</div>
 
 					<div className="col-two">
-						<h2>About Election App 2022</h2>
+						<h2>About Just Another App 2022</h2>
 						<p>
 							Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe, magni, aperiam
 							vitae illum voluptatum aut sequi impedit non velit ab ea pariatur sint quidem
@@ -301,7 +301,7 @@ const About = () => {
 					</div>
 
 					<div className="col-two">
-						<h2>About Election App 2022yY</h2>
+						<h2>About Just Another App 2022yY</h2>
 						<p>
 							Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe, magni, aperiam
 							vitae illum voluptatum aut sequi impedit non velit ab ea pariatur sint quidem
@@ -318,7 +318,7 @@ const About = () => {
 					</div>
 
 					<div className="col-four">
-						<h2>About Election App 2022</h2>
+						<h2>About Just Another App 2022</h2>
 						<p><b>This component utilizes the CSS Flexible Box Layout module.</b></p>
 						<p>
 							Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe, magni, aperiam
@@ -348,7 +348,7 @@ const About = () => {
 					</div>
 
 					<div className="col-four">
-						<h2>About Election App 2022</h2>
+						<h2>About Just Another App 2022</h2>
 						<p><b>This component utilizes the CSS Flexible Box Layout module.</b></p>
 						<p>
 							Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe, magni, aperiam
@@ -371,7 +371,7 @@ const About = () => {
 					</div>
 
 					<div className="col-six">
-						<h2>About Election App 2022</h2>
+						<h2>About Just Another App 2022</h2>
 						<p><b>This component utilizes the CSS Flexible Box Layout module.</b></p>
 						<p>
 							Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe, magni, aperiam
