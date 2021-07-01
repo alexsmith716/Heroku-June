@@ -7,7 +7,7 @@ const Footer: React.FC = () => {
 			<div className="container">
 				<Styles.FooterContainer className="flex-column align-items-center pt-4 pb-4">
 					<div>
-						Copyright &copy; {new Date().getFullYear()} · Election App 2022
+						Copyright &copy; {new Date().getFullYear()} · Just Another App
 					</div>
 					<div className="flex-row align-items-center">
 						<Styles.FooterHeadphones>
