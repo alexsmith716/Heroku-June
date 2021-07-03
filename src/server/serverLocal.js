@@ -1,4 +1,3 @@
-import path from 'path';
 import express from 'express';
 import { createServer } from 'http';
 import { apolloServer } from './apolloServer';

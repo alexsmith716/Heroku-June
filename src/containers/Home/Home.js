@@ -11,21 +11,22 @@ const Home = () => {
 
 			<Styles.Masthead className="mb-5">
 				<div className="container">
-					<Styles.MastheadHeadingOne>Just Another App</Styles.MastheadHeadingOne>
+					<Styles.MastheadHeadingOne>Alex Smith's App</Styles.MastheadHeadingOne>
 
 					<Styles.MastheadHeadingTwo>
-						Just Another App Masthead Heading!
+						Showcasing Examples Of Modern Web Development
 					</Styles.MastheadHeadingTwo>
 
-					<Styles.MastheadBlurb>Just Another App Masthead Blurb</Styles.MastheadBlurb>
+					<Styles.MastheadBlurb>Interested in challenging JavaScript?</Styles.MastheadBlurb>
 
 					<Styles.MastheadBlurbElipsis>... check it out today.</Styles.MastheadBlurbElipsis>
 
+					{/* --- TO-DO: dynamically rotate and display routes to Link to --- */}
 					<Styles.MastheadButton
 						className="btn-success"
 						onClick={() => false}
 						type="button"
-						buttonText="SPLASH BUTTON »"
+						buttonText="DEMO SPLASH BUTTON »"
 					/>
 	
 				</div>

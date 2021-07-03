@@ -6,8 +6,6 @@ import { loadAboutCSV } from '../../redux/modules/aboutCSV';
 import { State as AboutCSVState } from '../../redux/modules/aboutCSV';
 import { Loading } from '../../components/Loading';
 
-import * as Styles from './styles';
-
 const AboutCSV = () => {
 
 	const dispatch = useDispatch();

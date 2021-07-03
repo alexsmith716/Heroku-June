@@ -2,9 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import papa from 'papaparse';
 import { S3Client, GetObjectCommand } from '@aws-sdk/client-s3';
+import { CognitoIdentityClient } from "@aws-sdk/client-cognito-identity";
+import { fromCognitoIdentityPool } from "@aws-sdk/credential-provider-cognito-identity";
+
 import { Loading } from '../../components/Loading';
 
-// S3 object on AWS, Heroku AWS config vars set and will be pushed tomorrow
 // also, modify this for redux state and consolidate all CSV loading to a single utility
 // and, see what i can do modifying and diplaying CSV data as table or whatever
 
@@ -13,20 +15,28 @@ import { Loading } from '../../components/Loading';
 
 const NYCBridgeRatings = () => {
 
-	const [clientResponse, setClientResponse] = useState('');
-	const [unparsedResponse, setUnparsedResponse] = useState('');
+	const [clientResponse, setClientResponse] = useState(null);
+	const [unparsedResponse, setUnparsedResponse] = useState(null);
 	const [error, setError] = useState(null);
-	const [loading, setLoading] = useState(false);
+	const [loading, setLoading] = useState(true);
 
-	const client = new S3Client({
-		credentials: {
-			accessKeyId: config.aws.aws_access_key_id,
-			secretAccessKey: config.aws.aws_secret_access_key,
-		},
-		region: config.aws.aws_region,
+	const region = 'us-east-1';
+
+	// create an AWS S3 service object
+	// generate temporary AWS credentials -authenticate user
+	// obtain AWS credentials via client `CognitoIdentityClient`
+	// method `fromCognitoIdentityPool` contains the defined IAM roles
+	const s3Client = new S3Client({
+		region,
+		credentials: fromCognitoIdentityPool({
+			client: new CognitoIdentityClient({ region }),
+			identityPoolId: 'us-east-1:6c3faebd-a86c-4f34-8463-ab623897f206',
+		}),
 	});
 
-	const getBridgeRatings = new GetObjectCommand({ Bucket: config.aws.aws_bucket, Key: 'Bridge_Ratings.csv' });
+	// GET object `Bridge_Ratings.csv` from AWS S3
+	// pass required `Bucket`, `Key` parameters to `GetObjectCommand` method
+	const getBridgeRatings = new GetObjectCommand({ Bucket: 'bucket-csv-6-29-21', Key: 'Bridge_Ratings.csv' });
 
 	// convert ReadableStream to a string
 	function streamToString(stream) {
@@ -62,11 +72,13 @@ const NYCBridgeRatings = () => {
 						header: true,
 						complete: (res) => {
 							const p = papa.unparse(res.data);
+							setLoading(false);
 							setUnparsedResponse(p);
 						}
 					});
 				} catch (error) {
 					console.error(error);
+					setLoading(false);
 					setError(error);
 				}
 			}
@@ -74,14 +86,16 @@ const NYCBridgeRatings = () => {
 		[clientResponse]
 	);
 
-	useEffect(() => {
-			setLoading(true)
-			client.send(getBridgeRatings)
-				.then(res => setClientResponse(res))
-				.catch(error => {
-					setError(error);
-					throw new Error("Error: Error fetching S3Client resource.");
-				})
+	// AWS SDK recommends async/await for asych service calls
+	useEffect(async () => {
+			try {
+				const data = await s3Client.send(getBridgeRatings);
+				setClientResponse(data)
+			} catch (error) {
+				console.error(error);
+				setLoading(false);
+				setError('NetworkError when attempting to fetch resource.');
+			}
 		},
 		[]
 	);
@@ -115,7 +129,7 @@ const NYCBridgeRatings = () => {
 
 				{/* ---------------------------------------------- */}
 
-				{(loading && !error && unparsedResponse === '') &&
+				{loading &&
 					<div className="bg-progress-blue container-padding-radius-10 text-color-white overflow-wrap-break-word mb-3">
 						<Loading text="Loading" />
 					</div>
@@ -127,11 +141,11 @@ const NYCBridgeRatings = () => {
 					</div>
 				}
 
-				<div className="bg-color-ivory container-padding-border-radius-1 overflow-wrap-break-word mb-5">
-					{unparsedResponse !== '' && (
+				{unparsedResponse && (
+					<div className="bg-color-ivory container-padding-border-radius-1 overflow-wrap-break-word mb-5">
 						<div>{unparsedResponse}</div>
-					)}
-				</div>
+					</div>
+				)}
 			</div>
 		</>
 	);
