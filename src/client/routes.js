@@ -5,6 +5,7 @@ import NotFound from '../containers/NotFound/Loadable';
 
 import About from '../containers/About/Loadable';
 import AboutCSV from '../containers/AboutCSV/Loadable';
+import NYCBridgeRatings from '../containers/NYCBridgeRatings/Loadable';
 import RESTfulExample from '../containers/RESTfulExample/Loadable';
 import GraphQLExample from '../containers/GraphQLExample/Loadable';
 
@@ -36,6 +37,11 @@ const routes = [
 						path: '/aboutcsv',
 						exact: true,
 						component: AboutCSV,
+					},
+					{
+						path: '/nycbridgeratings',
+						exact: true,
+						component: NYCBridgeRatings,
 					},
 					{
 						path: '/restfulexample',

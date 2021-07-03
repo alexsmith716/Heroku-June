@@ -10,6 +10,11 @@ export const NavLinks = [
 		linkType: 'navLink',
 	},
 	{
+		title: 'BridgeRatings',
+		url: '/nycbridgeratings',
+		linkType: 'navLink',
+	},
+	{
 		title: 'REST',
 		url: '/restfulexample',
 		linkType: 'navLink',
