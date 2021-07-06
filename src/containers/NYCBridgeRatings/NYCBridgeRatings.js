@@ -2,13 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import papa from 'papaparse';
 import { S3Client, GetObjectCommand } from '@aws-sdk/client-s3';
-import { CognitoIdentityClient } from "@aws-sdk/client-cognito-identity";
-import { fromCognitoIdentityPool } from "@aws-sdk/credential-provider-cognito-identity";
+import { CognitoIdentityClient } from '@aws-sdk/client-cognito-identity';
+import { fromCognitoIdentityPool } from '@aws-sdk/credential-provider-cognito-identity';
 
 import { Loading } from '../../components/Loading';
 
 // also, modify this for redux state and consolidate all CSV loading to a single utility
-// and, see what i can do modifying and diplaying CSV data as table or whatever
+// and, see what i can do modifying and displaying CSV data as table or whatever
 
 // BORO,     FEATURE CARRIED, Current Rating*, Verbal Rating, REPLACEMENT COST
 // Bourough,     Bridge,      Current Rating,  Verbal Rating, Replacement Cost
@@ -63,11 +63,8 @@ const NYCBridgeRatings = () => {
 
 	useEffect(async () => {
 			if (clientResponse) {
-
 				try {
-
 					const responseString = await streamToString(clientResponse.Body);
-
 					papa.parse(responseString, {
 						header: true,
 						complete: (res) => {
@@ -86,7 +83,7 @@ const NYCBridgeRatings = () => {
 		[clientResponse]
 	);
 
-	// AWS SDK recommends async/await for asych service calls
+	// AWS SDK recommends async/await for async service calls
 	useEffect(async () => {
 			try {
 				const data = await s3Client.send(getBridgeRatings);

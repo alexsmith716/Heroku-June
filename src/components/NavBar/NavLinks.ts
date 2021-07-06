@@ -1,27 +1,27 @@
 export const NavLinks = [
 	{
 		title: 'About',
-		url: '/about',
+		url: 'about',
 		linkType: 'navLink',
 	},
 	{
 		title: 'AboutCSV',
-		url: '/aboutcsv',
+		url: 'aboutcsv',
 		linkType: 'navLink',
 	},
 	{
 		title: 'BridgeRatings',
-		url: '/nycbridgeratings',
+		url: 'nycbridgeratings',
 		linkType: 'navLink',
 	},
 	{
 		title: 'REST',
-		url: '/restfulexample',
+		url: 'restfulexample',
 		linkType: 'navLink',
 	},
 	{
 		title: 'GraphQL',
-		url: '/graphqlexample',
+		url: 'graphqlexample',
 		linkType: 'navLink',
 	},
 ];

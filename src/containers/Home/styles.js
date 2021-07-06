@@ -1,9 +1,10 @@
 import styled, { css } from 'styled-components';
+import { Link } from 'react-router-dom';
 import Button from '../../components/Button';
 
 export const Masthead = styled.div`
 	padding-bottom: 78px;
-  background: url('/splashImage.jpg');
+	background: url('/splashImage.jpg');
 	background-repeat: no-repeat;
 	background-position: center center;
 	background-position-x: 32%;
@@ -70,4 +71,8 @@ export const MastheadBlurbElipsis = styled(MastheadBlurb)`
 export const MastheadButton = styled(Button)`
 	font-size: 1.1rem;
 	font-family: 'Phosphate';
+`;
+
+export const MastheadLink = styled(Link)`
+	text-decoration: none;
 `;
