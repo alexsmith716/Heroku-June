@@ -14,7 +14,7 @@ function filterData(data) {
 
 function fetchCSVs() {
 
-	return fetch('/plans.csv')
+	return fetch('https://sleepy-wave-92667.herokuapp.com/plans.csv')
 		.then(res => res.text())
 		.then(textPlans => {
 			papa.parse(textPlans, {
@@ -25,12 +25,12 @@ function fetchCSVs() {
 					responsePLANS = filterPlans;
 				},
 			});
-			return fetch('/zips.csv')
+			return fetch('https://sleepy-wave-92667.herokuapp.com/zips.csv')
 		})
 		.then(res => res.text())
 		.then(textZips => {
 			papa.parse(textZips, { delimiter: ',', header: true, complete: (res) => responseZIPS = res.data, });
-			return fetch('/slcsp.csv')
+			return fetch('https://sleepy-wave-92667.herokuapp.com/slcsp.csv')
 		})
 		.then(res => res.text())
 		.then(textSlcsp => {

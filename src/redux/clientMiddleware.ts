@@ -10,15 +10,7 @@ export default function clientMiddleware(helpers: any): Middleware {
 		const { promise, types, ...rest } = action;
 
 		if (!promise) {
-			// {
-			//   "type": "redux-example/filterableTable/SELECTED_OPTION",
-			//   "option": "https://api.github.com/emojis",
-			//   "meta": {"__multireducerKey": "AboutOneMultireducerFilterableTable1"}
-			// }
-			//
 			return next(action);
-		} else {
-			//
 		}
 
 		// allow some (async) actions to pass a "promise generator"
