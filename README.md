@@ -34,7 +34,7 @@ The app is deployed here:
 - Frontend
   - REST API example
   - GraphQL API example
-  - State management (localForage, Redux, Apollo)
+  - State management (localforage, Redux, Apollo Client)
   - Responsive layout
   - Mobile first design
   - Theming
