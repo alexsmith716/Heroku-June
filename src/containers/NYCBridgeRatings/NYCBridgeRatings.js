@@ -10,9 +10,6 @@ import { Loading } from '../../components/Loading';
 // also, modify this for redux state and consolidate all CSV loading to a single utility
 // and, see what i can do modifying and displaying CSV data as table or whatever
 
-// BORO,     FEATURE CARRIED, Current Rating*, Verbal Rating, REPLACEMENT COST
-// Bourough,     Bridge,      Current Rating,  Verbal Rating, Replacement Cost
-
 const NYCBridgeRatings = () => {
 
 	const [clientResponse, setClientResponse] = useState(null);
@@ -23,9 +20,10 @@ const NYCBridgeRatings = () => {
 	const region = 'us-east-1';
 
 	// create an AWS S3 service object
-	// generate temporary AWS credentials -authenticate user
+	// authenticate user
+	// generate temporary AWS credentials
 	// obtain AWS credentials via client `CognitoIdentityClient`
-	// method `fromCognitoIdentityPool` contains the defined IAM roles
+	// method `fromCognitoIdentityPool` contains defined IAM roles
 	const s3Client = new S3Client({
 		region,
 		credentials: fromCognitoIdentityPool({
@@ -65,14 +63,34 @@ const NYCBridgeRatings = () => {
 			if (clientResponse) {
 				try {
 					const responseString = await streamToString(clientResponse.Body);
+					let data;
+
 					papa.parse(responseString, {
 						header: true,
 						complete: (res) => {
-							const p = papa.unparse(res.data);
-							setLoading(false);
-							setUnparsedResponse(p);
+							data = res.data.map(e => {
+								e['BORO'] === 'B' ? e['BORO'] = 'Bronx' : null;
+								e['BORO'] === 'BM' ? e['BORO'] = 'Bronx-Manhattan' : null;
+								e['BORO'] === 'K' ? e['BORO'] = 'Brooklyn' : null;
+								e['BORO'] === 'KM' ? e['BORO'] = 'Brooklyn-Manhattan' : null;
+								e['BORO'] === 'KQ' ? e['BORO'] = 'Brooklyn-Queens' : null;
+								e['BORO'] === 'M' ? e['BORO'] = 'Manhattan' : null;
+								e['BORO'] === 'MQ' ? e['BORO'] = 'Manhattan-Queens' : null;
+								e['BORO'] === 'Q' ? e['BORO'] = 'Queens' : null;
+								e['BORO'] === 'R' ? e['BORO'] = 'Staten Island' : null;
+								return ({
+									Borough: e['BORO'],
+									Bridge: e['FEATURE CARRIED'],
+									CurrentRating: e['Current Rating*'],
+									VerbalRating: e['Verbal Rating'],
+									ReplacementCost: e['REPLACEMENT COST'],
+								})
+							})
 						}
 					});
+					const u = papa.unparse(data);
+					setLoading(false);
+					setUnparsedResponse(u);
 				} catch (error) {
 					console.error(error);
 					setLoading(false);
@@ -120,29 +138,33 @@ const NYCBridgeRatings = () => {
 
 				<div className="mb-3">
 					<p>
-						New York State inspectors assess all of the bridges every two years including a bridge's individual parts. Bridges are analyzed for their capacity to carry vehicular loads. Inspectors are required to evaluate, assign a condition score, and document the condition of up to 47 structural elements, including rating 25 components of each span of a bridge, in addition to general components common to all bridges. The NYSDOT condition rating scale ranges from 1 to 7, with 7 being in new condition and a rating of 5 or greater considered as good conditionBridges that cannot safely carry heavy vehicles, such as some tractor trailers, are posted with weight limits. Based upon inspection and load capacity analysis, any bridge deemed unsafe gets closed.
+						New York State inspectors assess all of the bridges every two years including a bridge's individual parts. Bridges are analyzed for their capacity to carry vehicular loads. Inspectors are required to evaluate, assign a condition score, and document the condition of up to 47 structural es, including rating 25 components of each span of a bridge, in addition to general components common to all bridges. The NYSDOT condition rating scale ranges from 1 to 7, with 7 being in new condition and a rating of 5 or greater considered as good conditionBridges that cannot safely carry heavy vehicles, such as some tractor trailers, are posted with weight limits. Based upon inspection and load capacity analysis, any bridge deemed unsafe gets closed.
 					</p>
 				</div>
 
-				{/* ---------------------------------------------- */}
+				<div className="overflow-wrap-break-word mb-3">
+					{/* (>>>>>>>>>>>>>>>>>>>>>> LOADING >>>>>>>>>>>>>>>>>>>>>>>>) */}
+					{loading &&
+						<div className="bg-progress-blue container-padding-radius-10 text-color-white">
+							<Loading text="Loading" />
+						</div>
+					}
 
-				{loading &&
-					<div className="bg-progress-blue container-padding-radius-10 text-color-white overflow-wrap-break-word mb-3">
-						<Loading text="Loading" />
-					</div>
-				}
+					{/* (>>>>>>>>>>>>>>>>>>>>>> ERROR >>>>>>>>>>>>>>>>>>>>>>>>) */}
+					{error &&
+						<div className="bg-warn-red container-padding-radius-10 text-color-white">
+							{error}
+						</div>
+					}
 
-				{error &&
-					<div className="bg-warn-red container-padding-radius-10 text-color-white overflow-wrap-break-word mb-3">
-						{error}
-					</div>
-				}
+					{/* (>>>>>>>>>>>>>>>>>>>>>>>> LOADED >>>>>>>>>>>>>>>>>>>>>>>>) */}
+					{unparsedResponse && (
+						<div className="bg-color-ivory container-padding-border-radius-1">
+							<pre>{unparsedResponse}</pre>
+						</div>
+					)}
+				</div>
 
-				{unparsedResponse && (
-					<div className="bg-color-ivory container-padding-border-radius-1 overflow-wrap-break-word mb-5">
-						<div>{unparsedResponse}</div>
-					</div>
-				)}
 			</div>
 		</>
 	);
