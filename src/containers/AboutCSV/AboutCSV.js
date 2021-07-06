@@ -77,28 +77,29 @@ const AboutCSV = () => {
 					</p>
 				</div>
 
-				{/* ---------------------------------------------- */}
-
-				<div className="bg-color-ivory container-padding-border-radius-1 word-break-all mb-5">
-
-					{loading && <Loading text="Loading" />}
+				<div className="overflow-wrap-break-word mb-3">
+					{/* (>>>>>>>>>>>>>>>>>>>>>> LOADING >>>>>>>>>>>>>>>>>>>>>>>>) */}
+					{loading &&
+						<div className="bg-progress-blue container-padding-radius-10 text-color-white">
+							<Loading text="Loading" />
+						</div>
+					}
 
 					{/* (>>>>>>>>>>>>>>>>>>>>>> ERROR >>>>>>>>>>>>>>>>>>>>>>>>) */}
-					{error && (
-						<div>
-							<div>{`${errorResponse.error.message}`}</div>
+					{error &&
+						<div className="bg-warn-red container-padding-radius-10 text-color-white">
+							{`${errorResponse.error.message}`}
 						</div>
-					)}
+					}
 
 					{/* (>>>>>>>>>>>>>>>>>>>>>>>> LOADED >>>>>>>>>>>>>>>>>>>>>>>>) */}
-					{(!loading && !error) && (
-						<div>
-							<div>
-								<pre>{data && data.result.data}</pre>
-							</div>
+					{data && (
+						<div className="bg-color-ivory container-padding-border-radius-1">
+							<pre>{data.result.data}</pre>
 						</div>
 					)}
 				</div>
+
 			</div>
 		</>
 	);
