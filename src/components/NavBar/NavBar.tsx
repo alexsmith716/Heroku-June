@@ -8,7 +8,7 @@ import * as Styles from './styles';
 import { useTheme } from '../../styled/ThemeContext';
 
 //  export type State = {
-//  	theme: ThemeState;
+//    theme: ThemeState;
 //  };
 
 export const NavBar: React.FC = () => {
@@ -35,23 +35,23 @@ export const NavBar: React.FC = () => {
 						to="/"
 						onClick={() => setClicked(false)}
 					>
-						App Home
+						Home
 					</Styles.NavBarBrandLink>
 
 					<Styles.NavBarNav clicked={clicked} className={clicked ? 'clicked' : ''}>
 						<li>
 							<Styles.NavBarNavA onClick={doThemeToggle}>
-								use{themeMode.mode === 'dark' ? `Default` : `Dark`}Theme
+								{themeMode.mode === 'dark' ? `Light` : `Dark`}Theme
 							</Styles.NavBarNavA>
 						</li>
 
 						{NavLinks.map((item, index) => {
-							let a = activeRoute === item.url;
+							let a = activeRoute === `/${item.url}`;
 							return (
 								<li key={index}>
 									<Styles.NavBarNavLink
 										activelink={a.toString()}
-										to={item.url}
+										to={`/${item.url}`}
 										onClick={() => setClicked(false)}
 									>
 										{item.title}

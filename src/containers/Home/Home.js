@@ -1,8 +1,32 @@
-import React from 'react';
+import React, { useEffect, useReducer } from 'react';
+import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
+import { NavLinks } from '../../components/NavBar/NavLinks';
 import * as Styles from './styles';
 
+const reducer = (int, action) => {
+	int >= NavLinks.length-1 ? int = -1 : null
+	switch(action.type) {
+		case 'incrementNavLink':
+			return int + 1;
+		default:
+			return int;
+	}
+}
+
 const Home = () => {
+
+	const [int, dispatch] = useReducer(reducer, 0);
+	const [linkUrl, setLinkUrl] = useReducer('');
+
+	useEffect(() => {
+			setInterval(() => {
+				dispatch({type: 'incrementNavLink'});
+			}, 2500);
+		},
+		[]
+	);
+
 	return (
 		<>
 			<Helmet title="Home" />
@@ -21,13 +45,12 @@ const Home = () => {
 
 					<Styles.MastheadBlurbElipsis>... check it out today.</Styles.MastheadBlurbElipsis>
 
-					{/* --- TO-DO: dynamically rotate and display routes to Link to --- */}
-					<Styles.MastheadButton
-						className="btn-success"
-						onClick={() => false}
-						type="button"
-						buttonText="DEMO SPLASH BUTTON »"
-					/>
+					<Styles.MastheadLink
+						className="btn btn-lg btn-success"
+						to={`/${NavLinks[int].url}`}
+					>
+						Go To {`${NavLinks[int].title}`}
+					</Styles.MastheadLink>
 	
 				</div>
 			</Styles.Masthead>

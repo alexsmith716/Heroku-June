@@ -457,15 +457,15 @@ export const GlobalStyle = createGlobalStyle`
 	}
 
 	.mb-3 {
-		margin-bottom: 1rem;;
+		margin-bottom: 1rem;
 	}
 
 	.mb-4 {
-		margin-bottom: 1.5rem;;
+		margin-bottom: 1.5rem;
 	}
 
 	.mb-5 {
-		margin-bottom: 3rem;;
+		margin-bottom: 3rem;
 	}
 
 	.m-2 {
@@ -507,19 +507,19 @@ export const GlobalStyle = createGlobalStyle`
 	}
 
 	.pb-2 {
-		padding-bottom: 0.75rem;;
+		padding-bottom: 0.75rem;
 	}
 
 	.pb-3 {
-		padding-bottom: 1rem;;
+		padding-bottom: 1rem;
 	}
 
 	.pb-4 {
-		padding-bottom: 1.5rem;;
+		padding-bottom: 1.5rem;
 	}
 
 	.pb-5 {
-		padding-bottom: 3rem;;
+		padding-bottom: 3rem;
 	}
 
 	.p-2 {
@@ -578,6 +578,10 @@ export const GlobalStyle = createGlobalStyle`
 		font-size: 1rem;
 		line-height: 1.5;
 		border-radius: 0.25rem;
+	}
+
+	.btn-lg {
+		font-size: 1.25rem;
 	}
 
 	.btn-primary {

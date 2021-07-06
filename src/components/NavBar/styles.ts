@@ -50,7 +50,7 @@ export const Toggler = styled.div`
 export const NavBarNav = styled.ul<Props>`
 	margin-left: auto;
 	display: grid;
-	grid-template-columns: repeat(6, auto);
+	grid-template-columns: repeat(7, auto);
 	grid-gap: 15px;
 	list-style: none;
 	text-align: center;
@@ -93,8 +93,8 @@ export const NavBarNavA = styled.a`
 	}
 `;
 
-// 	modify to:
-//	https://github.com/ReactTraining/react-router/blob/master/packages/react-router-dom/docs/api/NavLink.md
+//  modify to:
+//  https://github.com/ReactTraining/react-router/blob/master/packages/react-router-dom/docs/api/NavLink.md
 export const NavBarNavLink = styled(Link)<Props>`
 	color: ${(props) => (props.activelink === 'true' ? colors.ivory : colors.grayFive)};
 	text-decoration: none;
