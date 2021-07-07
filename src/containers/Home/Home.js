@@ -17,15 +17,15 @@ const reducer = (int, action) => {
 const Home = () => {
 
 	const [int, dispatch] = useReducer(reducer, 0);
-	const [linkUrl, setLinkUrl] = useReducer('');
 
 	useEffect(() => {
-			setInterval(() => {
-				dispatch({type: 'incrementNavLink'});
-			}, 2500);
-		},
-		[]
-	);
+		const timer = setInterval(() => {
+			dispatch({ type: 'incrementNavLink' });
+		}, 2500);
+		return () => {
+			clearInterval(timer);
+		};
+	}, []);
 
 	return (
 		<>
