@@ -44,6 +44,10 @@ export const GlobalStyle = createGlobalStyle`
 		margin-bottom: 1rem;
 	}
 
+	pre {
+		white-space: pre-wrap;
+	}
+
 	// ========================================
 
 	.form-control {
