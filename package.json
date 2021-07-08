@@ -12,7 +12,7 @@
   "clean": "rimraf dist lib"
  },
  "dependencies": {
-  "@apollo/client": "^3.3.20",
+  "@apollo/client": "^3.3.21",
   "@aws-sdk/client-cognito-identity": "^3.20.0",
   "@aws-sdk/client-s3": "^3.20.0",
   "@aws-sdk/credential-provider-cognito-identity": "^3.20.0",
