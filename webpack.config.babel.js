@@ -11,10 +11,13 @@ const DIST_PATH = path.resolve(__dirname, 'dist');
 const production = process.env.NODE_ENV === 'production';
 const development = !process.env.NODE_ENV || process.env.NODE_ENV === 'development';
 
+// https://github.com/webpack/webpack/tree/main/examples/source-map
+
 const getConfig = target => ({
 	context: path.resolve(__dirname, './'),
 	name: target,
 	mode: development ? 'development' : 'production',
+	devtool: development ? 'eval-source-map' : 'nosources-source-map',
 	target,
 	entry: {
 		main: target === 'node' ? './src/server/renderer.js' : './src/client/index.js',
@@ -25,6 +28,10 @@ const getConfig = target => ({
 		filename: '[name].js',
 		publicPath: `/${target}/`,
 		libraryTarget: target === 'node' ? 'commonjs2' : undefined,
+	},
+
+	stats: {
+		children: true
 	},
 
 	module: {
