@@ -1,18 +1,51 @@
-import styled, { css } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 import { Link } from 'react-router-dom';
 import Button from '../../components/Button';
 
+const backgroundColorPalette = keyframes`
+	0% {
+		background: #006466;
+	}
+	10% {
+		background: #065a60;
+	}
+	20% {
+		background: #0b525b;
+	}
+	30% {
+		background: #144552;
+	}
+	40% {
+		background: #1b3a4b;
+	}
+	50% {
+		background: #212f45;
+	}
+	60% {
+		background: #272640;
+	}
+	70% {
+		background: #312244;
+	}
+	80% {
+		background: #3e1f47;
+	}
+	90% {
+		background: #4d194d;
+	}
+	100% {
+		background: #432534;
+	}
+`;
+
 export const Masthead = styled.div`
 	padding-bottom: 78px;
-	background: url('/splashImage.jpg');
-	background-repeat: no-repeat;
-	background-position: center center;
-	background-position-x: 32%;
-	background-size: cover;
 	text-align: center;
 
-	color: #dc143c;
-	font-family: 'Phosphate', 'Desdemona', 'Noteworthy', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	animation-name: ${backgroundColorPalette};
+	animation-duration: 10s;
+	animation-iteration-count: infinite;
+	animation-direction: alternate;
 
 	@media (min-width: 768px) {
 		text-align: left;
@@ -22,8 +55,7 @@ export const Masthead = styled.div`
 export const MastheadHeadingOne = styled.h1`
 	font-size: 61px;
 	font-weight: 600;
-	color: #104e8b;
-	font-family: 'Stencil', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	color: #fff;
 
 	@media (min-width: 768px) {
 		font-size: 4.1rem;
@@ -36,8 +68,11 @@ export const MastheadHeadingOne = styled.h1`
 
 export const MastheadHeadingTwo = styled.h2`
 	font-size: 2rem;
-	color: #cd6600;
-	font-family: 'Desdemona', 'Noteworthy', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	color: #EEC900;
+
+	@media (min-width: 576px) {
+		font-size: 2.3rem;
+	}
 
 	@media (min-width: 768px) {
 		font-size: 2.3rem;
@@ -52,7 +87,7 @@ export const MastheadBlurb = styled.div`
 	margin-top: 20px;
 	margin-bottom: 5px;
 	font-size: 1.2rem;
-	font-family: 'American Typewriter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	color: #FFD39B;
 
 	@media (min-width: 768px) {
 		font-size: 1.4rem;
