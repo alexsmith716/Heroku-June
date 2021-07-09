@@ -35,23 +35,23 @@ const Home = () => {
 
 			<Styles.Masthead className="mb-5">
 				<div className="container">
+
 					<Styles.MastheadHeadingOne>Alex Smith's App</Styles.MastheadHeadingOne>
 
 					<Styles.MastheadHeadingTwo>
-						Showcasing Examples Of Modern Web Development
+						My Full-Stack Developer Portfolio
 					</Styles.MastheadHeadingTwo>
 
 					<Styles.MastheadBlurb>Interested in challenging JavaScript?</Styles.MastheadBlurb>
 
-					<Styles.MastheadBlurbElipsis>... check it out today.</Styles.MastheadBlurbElipsis>
+					<Styles.MastheadBlurbElipsis>... check out samples of my work.</Styles.MastheadBlurbElipsis>
 
 					<Styles.MastheadLink
 						className="btn btn-lg btn-success"
 						to={`/${NavLinks[int].url}`}
 					>
-						Go To {`${NavLinks[int].title}`}
+						{`${NavLinks[int].title}`}&nbsp;>>
 					</Styles.MastheadLink>
-	
 				</div>
 			</Styles.Masthead>
 
