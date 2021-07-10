@@ -1,7 +1,7 @@
 import cluster from 'cluster';
 import { cpus } from 'os';
-// import { startServer } from './serverHeroku';
-import { startServer } from './serverLocal';
+import { startServer } from './serverHeroku';
+// import { startServer } from './serverLocal';
 
 const numCPUs = cpus().length;
 
