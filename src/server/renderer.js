@@ -52,7 +52,7 @@ export async function get(req, res) {
 	// =====================================================
 
 	const clientApollo = apolloClient({
-		uri: 'http://localhost:8080/graphql/',
+		uri: 'https://sleepy-wave-92667.herokuapp.com/graphql',
 		ssrMode: true,
 	});
 
