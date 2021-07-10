@@ -10,11 +10,11 @@ export const SubContainer = styled.div`
 `;
 
 export const AboutImageMain = styled.img`
-	src: ${props => props.src};
-	alt: ${props => props.alt};
+	src: ${(props) => props.src};
+	alt: ${(props) => props.alt};
 `;
 
 export const AboutImageOurCustomers = styled.img`
-	src: ${props => props.src};
-	alt: ${props => props.alt};
+	src: ${(props) => props.src};
+	alt: ${(props) => props.alt};
 `;

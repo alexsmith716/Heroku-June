@@ -48,12 +48,10 @@ export const GlobalStyle = createGlobalStyle`
 		white-space: pre-wrap;
 	}
 
-	// ========================================
-
 	.form-control {
 		display: block;
 		width: 100%;
-		padding: .375rem .75rem;
+		padding: 0.38rem 0.75rem;
 		font-size: 1rem;
 		font-weight: 400;
 		line-height: 1.5;
@@ -64,10 +62,8 @@ export const GlobalStyle = createGlobalStyle`
 		-webkit-appearance: none;
 		-moz-appearance: none;
 		appearance: none;
-		border-radius: .25rem;
+		border-radius: 0.25rem;
 	}
-
-	// ========================================
 
 	.container {
 		width: 100%;
@@ -101,8 +97,6 @@ export const GlobalStyle = createGlobalStyle`
 		}
 	}
 
-	// ========================================
-
 	.row-grid {
 		display: grid;
 		margin-right: -15px;
@@ -121,6 +115,7 @@ export const GlobalStyle = createGlobalStyle`
 		.grid-two {
 			grid-template-columns: 1fr;
 		}
+
 		.grid-six {
 			grid-template-columns: 1fr;
 		}
@@ -132,8 +127,6 @@ export const GlobalStyle = createGlobalStyle`
 		padding-right: 15px;
 		padding-left: 15px;
 	}
-
-	// ========================================
 
 	.row-flex {
 		display: flex;
@@ -148,8 +141,6 @@ export const GlobalStyle = createGlobalStyle`
 		}
 	}
 
-	// ========================================
-
 	.card-container-grid {
 		display: grid;
 		grid-template-columns: repeat(3, auto);
@@ -161,10 +152,6 @@ export const GlobalStyle = createGlobalStyle`
 			grid-template-columns: 1fr;
 		}
 	}
-
-	// ========================================
-	// flex-flow: short-hand for the flex-direction and flex-wrap properties
-	// ========================================
 
 	.sub-container {
 		width: 100%;
@@ -211,8 +198,6 @@ export const GlobalStyle = createGlobalStyle`
 		border-radius: 10px;
 	}
 
-	// ========================================
-
 	.align-items-start {
 		align-items: flex-start;
 	}
@@ -233,8 +218,6 @@ export const GlobalStyle = createGlobalStyle`
 		align-items: baseline;
 	}
 
-	// ---------------------------
-
 	.align-self-start {
 		align-self: flex-start;
 	}
@@ -246,8 +229,6 @@ export const GlobalStyle = createGlobalStyle`
 	.align-self-end {
 		align-self: flex-end;
 	}
-
-	// ---------------------------
 
 	.justify-content-start {
 		justify-content: flex-start;
@@ -268,8 +249,6 @@ export const GlobalStyle = createGlobalStyle`
 	.justify-content-space-around {
 		justify-content: space-around;
 	}
-
-	// ---------------------------
 
 	.align-content-start {
 		align-content: flex-start;
@@ -295,8 +274,6 @@ export const GlobalStyle = createGlobalStyle`
 		align-content: stretch;
 	}
 
-	// ========================================
-
 	.h-100 {
 		height: 100%;
 	}
@@ -314,8 +291,6 @@ export const GlobalStyle = createGlobalStyle`
 		border-radius: 0.25rem;
 	}
 
-	// ========================================
-
 	.card {
 		position: relative;
 		display: flex;
@@ -323,12 +298,11 @@ export const GlobalStyle = createGlobalStyle`
 		min-width: 0;
 		background-color: #fff;
 		background-clip: border-box;
-		border: 1px solid rgba(0, 0, 0, 0.125);
+		border: 1px solid rgba(0, 0, 0, 0.13);
 		border-radius: 0.25rem;
 	}
 
 	.card-body {
-		// flex: 1 1 auto;
 		flex-grow: 1;
 		flex-shrink: 1;
 		flex-basis: auto;
@@ -340,12 +314,21 @@ export const GlobalStyle = createGlobalStyle`
 		border-radius: 0 0 calc(0.25rem - 1px) calc(0.25rem - 1px);
 		padding: 0.75rem 1.25rem;
 		background-color: rgba(0, 0, 0, 0.03);
-		border-top: 1px solid rgba(0, 0, 0, 0.125);
+		border-top: 1px solid rgba(0, 0, 0, 0.13);
 	}
 
-	// ========================================
-
-	.col-one, .col-two, .col-three, .col-four, .col-five, .col-six, .col-seven, .col-eight, .col-nine, .col-ten, .col-eleven, .col-twelve {
+	.col-one,
+	.col-two,
+	.col-three,
+	.col-four,
+	.col-five,
+	.col-six,
+	.col-seven,
+	.col-eight,
+	.col-nine,
+	.col-ten,
+	col-eleven,
+	.col-twelve {
 		position: relative;
 		width: 100%;
 		padding-right: 15px;
@@ -355,15 +338,15 @@ export const GlobalStyle = createGlobalStyle`
 	.col-one {
 		flex-grow: 0;
 		flex-shrink: 0;
-		flex-basis: 8.3333%;
-		max-width: 8.333333%;
+		flex-basis: 8.33%;
+		max-width: 8.33%;
 	}
 
 	.col-two {
 		flex-grow: 0;
 		flex-shrink: 0;
-		flex-basis: 16.666667%;
-		max-width: 16.666667%;
+		flex-basis: 16.67%;
+		max-width: 16.67%;
 	}
 
 	.col-three {
@@ -376,15 +359,15 @@ export const GlobalStyle = createGlobalStyle`
 	.col-four {
 		flex-grow: 0;
 		flex-shrink: 0;
-		flex-basis: 33.3333%;
-		max-width: 33.333333%;
+		flex-basis: 33.33%;
+		max-width: 33.33%;
 	}
 
 	.col-five {
 		flex-grow: 0;
 		flex-shrink: 0;
-		flex-basis: 41.666667%;
-		max-width: 41.666667%;
+		flex-basis: 41.67%;
+		max-width: 41.67%;
 	}
 
 	.col-six {
@@ -397,15 +380,15 @@ export const GlobalStyle = createGlobalStyle`
 	.col-seven {
 		flex-grow: 0;
 		flex-shrink: 0;
-		flex-basis: 58.3333%;
-		max-width: 58.333333%;
+		flex-basis: 58.33%;
+		max-width: 58.33%;
 	}
 
 	.col-eight {
 		flex-grow: 0;
 		flex-shrink: 0;
-		flex-basis: 66.666667%;
-		max-width: 66.666667%;
+		flex-basis: 66.67%;
+		max-width: 66.67%;
 	}
 
 	.col-nine {
@@ -418,15 +401,15 @@ export const GlobalStyle = createGlobalStyle`
 	.col-ten {
 		flex-grow: 0;
 		flex-shrink: 0;
-		flex-basis: 83.3333%;
-		max-width: 83.333333%;
+		flex-basis: 83.33%;
+		max-width: 83.33%;
 	}
 
 	.col-eleven {
 		flex-grow: 0;
 		flex-shrink: 0;
-		flex-basis: 91.666667%;
-		max-width: 91.666667%;
+		flex-basis: 91.67%;
+		max-width: 91.67%;
 	}
 
 	.col-twelve {
@@ -437,12 +420,21 @@ export const GlobalStyle = createGlobalStyle`
 	}
 
 	@media screen and (max-width: 992px) {
-		.col-one, .col-two, .col-three, .col-four, .col-five, .col-six, .col-seven, .col-eight, .col-nine, .col-ten, .col-eleven, .col-twelve {
+		.col-one,
+		.col-two,
+		.col-three,
+		.col-four,
+		.col-five,
+		.col-six,
+		.col-seven,
+		.col-eight,
+		.col-nine,
+		.col-ten,
+		.col-eleven,
+		.col-twelve {
 			max-width: 100%;
 		}
 	}
-
-	// ========================================
 
 	.mt-2 {
 		margin-top: 0.75rem;
@@ -476,10 +468,6 @@ export const GlobalStyle = createGlobalStyle`
 		margin: 0.75rem;
 	}
 
-	.m-2 {
-		margin: 0.75rem;
-	}
-
 	.m-3 {
 		margin: 1rem;
 	}
@@ -491,8 +479,6 @@ export const GlobalStyle = createGlobalStyle`
 	.m-5 {
 		margin-bottom: 3rem;
 	}
-
-	// ========================================
 
 	.pt-2 {
 		padding-top: 0.75rem;
@@ -542,43 +528,38 @@ export const GlobalStyle = createGlobalStyle`
 		padding: 3rem;
 	}
 
-	// ========================================
-
 	.btn {
 		display: inline-block;
 		font-weight: 400;
 		text-align: center;
 		vertical-align: middle;
 		user-select: none;
-		background-color: transparent;
-		border: 1px solid transparent;
 		cursor: pointer;
-
-		padding: 0.375rem 0.75rem;
+		padding: 0.38rem 0.75rem;
 		font-size: 1rem;
 		line-height: 1.5;
 		border-radius: 0.25rem;
-
 		color: #fff;
+		border: 1px solid transparent;
 		background-color: #0d6efd;
 	}
 
 	.btn-tiny {
 		padding: 0.2rem 0.4rem;
-		font-size: .775rem;
-		line-height: 1.0;
+		font-size: 0.78rem;
+		line-height: 1;
 		border-radius: 0.2rem;
 	}
 
 	.btn-sm {
 		padding: 0.25rem 0.5rem;
-		font-size: .875rem;
+		font-size: 0.88rem;
 		line-height: 1.25;
-		border-radius: .2rem;
+		border-radius: 0.2rem;
 	}
 
 	.btn-md {
-		padding: 0.375rem 0.75rem;
+		padding: 0.38rem 0.75rem;
 		font-size: 1rem;
 		line-height: 1.5;
 		border-radius: 0.25rem;
@@ -626,10 +607,8 @@ export const GlobalStyle = createGlobalStyle`
 
 	.disabled {
 		pointer-events: none;
-		opacity: .45;
+		opacity: 0.45;
 	}
-
-	// ========================================
 
 	.overflow-wrap-break-word {
 		overflow-wrap: break-word;
@@ -657,16 +636,6 @@ export const GlobalStyle = createGlobalStyle`
 		overflow: hidden;
 	}
 
-	// ========================================
-
-	.container-padding-border-radius-2 {
-		padding: 10px 10px;
-		border: 2px solid #b0c4de;
-		border-radius: 3px;
-	}
-
-	// ========================================
-
 	.spinner-progress {
 		pointer-events: none;
 		position: absolute;
@@ -688,30 +657,26 @@ export const GlobalStyle = createGlobalStyle`
 		${spinnerTheme}
 		border-right-color: transparent;
 		border-radius: 50%;
-		animation: spinner .75s linear infinite;
+		animation: spinner 0.75s linear infinite;
 	}
 
 	.spinner-sm {
 		width: 1rem;
 		height: 1rem;
-		border-width: .2em;
+		border-width: 0.2em;
 	}
-
-	// ========================================
 
 	.text-color-white {
 		color: #fff;
 	}
 
-	// ========================================
-
 	.bg-progress-blue {
-		opacity: .80;
+		opacity: 0.8;
 		background-color: #17a2b8;
 	}
 
 	.bg-warn-red {
-		opacity: .80;
+		opacity: 0.8;
 		background-color: #dc3545;
 	}
 
@@ -783,8 +748,6 @@ export const GlobalStyle = createGlobalStyle`
 		background-color: #8ee5ee;
 	}
 
-	// ========================================
-
 	.row-color-odd {
 		background-color: ${colors.grayOne};
 	}
@@ -794,7 +757,6 @@ export const GlobalStyle = createGlobalStyle`
 	}
 
 	@media screen and (max-width: 992px) {
-
 		.collection-container {
 			display: grid;
 			grid-template-columns: 1fr 1fr;
@@ -806,14 +768,14 @@ export const GlobalStyle = createGlobalStyle`
 		}
 
 		.attribute::before {
-			border-right: 1px solid gray;
+			border-right: 1px solid #808080;
 			content: attr(data-name);
 		}
 
 		.attribute {
-			border-left: 1px solid gray;
-			border-right: 1px solid gray;
-			border-bottom: 1px solid gray;
+			border-left: 1px solid #808080;
+			border-right: 1px solid #808080;
+			border-bottom: 1px solid #808080;
 			padding-left: 2px;
 			display: grid;
 			gap: 2px;
@@ -821,12 +783,11 @@ export const GlobalStyle = createGlobalStyle`
 		}
 
 		.item > div:first-of-type {
-			border-top: 1px solid gray;
+			border-top: 1px solid #808080;
 		}
 	}
 
 	@media screen and (max-width: 575px) {
-
 		.collection-container {
 			display: grid;
 			grid-template-columns: 1fr;
@@ -834,7 +795,6 @@ export const GlobalStyle = createGlobalStyle`
 	}
 
 	@media screen and (min-width: 993px) {
-
 		.item-container {
 			display: grid;
 			grid-template-columns: 2em 2em 10fr 2fr 2fr 2fr 2fr 5em 5em;
@@ -874,28 +834,28 @@ export const GlobalStyle = createGlobalStyle`
 		}
 
 		.collection {
-			border-top: 1px solid gray;
-			border-left: 1px solid gray;
+			border-top: 1px solid #808080;
+			border-left: 1px solid #808080;
 		}
 
 		.attribute {
-			border-right: 1px solid gray;
-			border-bottom: 1px solid gray;
+			border-right: 1px solid #808080;
+			border-bottom: 1px solid #808080;
 			padding-left: 2px;
 			overflow: hidden;
 			white-space: nowrap;
 			text-overflow: ellipsis;
 		}
 
-		.collection-container>.item-container:first-child {
-			background-color: ${colors.khaki};
-		}
-
 		.item-container:hover {
 			background-color: ${colors.lightsteelblue};
 		}
 
-		.collection-container>.item-container:first-child .attribute {
+		.collection-container > .item-container:first-child {
+			background-color: ${colors.khaki};
+		}
+
+		.collection-container > .item-container:first-child .attribute {
 			display: flex;
 			align-items: center;
 			justify-content: center;

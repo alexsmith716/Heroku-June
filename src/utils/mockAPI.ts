@@ -68,7 +68,6 @@ export function postRequestConcatExportASYNC(
 			return error;
 		})
 		.then((result) => {
-
 			const message = result.value === 'reject' ? 'RESOLVED! 404 - Data Not Found.' : result.message;
 			const status = result.value === 'reject' ? 404 : result.status;
 

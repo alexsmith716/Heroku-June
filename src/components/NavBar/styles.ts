@@ -62,13 +62,14 @@ export const NavBarNav = styled.ul<Props>`
 		position: absolute;
 		top: 56px;
 		left: -100%;
-
-		${props => props.clicked && css`
-			background: #343a40;
-			left: 0;
-			opacity: 1;
-			z-index: 1;
-		`}
+		${(props) =>
+			props.clicked &&
+			css`
+				background: #343a40;
+				left: 0;
+				opacity: 1;
+				z-index: 1;
+			`}
 	}
 `;
 

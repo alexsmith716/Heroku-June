@@ -8,12 +8,12 @@ export const FooterStyled = styled.div`
 
 export const FooterContainer = styled.div`
 	color: ${colors.white};
-	font-family: 'LobsterV20LatinRegular', sans-serif;
+	font-family: "LobsterV20LatinRegular", sans-serif;
 `;
 
 export const FooterHeadphones = styled.span`
 	color: ${colors.gold};
-	font-family: 'Norwester', sans-serif;
+	font-family: "Norwester", sans-serif;
 `;
 
 export const StyledSvgHeadphones = styled(SvgHeadphones)`
@@ -28,5 +28,5 @@ export const SvgFooterHeadphones = styled.span`
 `;
 
 export const FooterBlurd = styled.div`
-	font-family: 'Norwester', sans-serif;
+	font-family: "Norwester", sans-serif;
 `;

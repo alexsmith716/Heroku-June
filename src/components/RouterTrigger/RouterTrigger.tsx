@@ -37,7 +37,7 @@ const RouterTrigger: React.FC<Props> = ({ triggerProp, children }) => {
 				.then(() => {
 					// for next route, preset "new" location as "previous" location (will reflect a change)
 					setPreviousLocationState(locationState);
-          window.scrollTo(0, 0);
+					window.scrollTo(0, 0);
 				});
 		}
 

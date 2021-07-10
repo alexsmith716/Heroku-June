@@ -1,26 +1,23 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Helmet } from 'react-helmet-async';
-import {
-	useQuery,
-	useLazyQuery,
-	useApolloClient,
-	NetworkStatus,
-	gql,
-	useReactiveVar,
-} from '@apollo/client';
+import { useQuery, useLazyQuery, useApolloClient, NetworkStatus, gql, useReactiveVar } from '@apollo/client';
 
 import { charactercurrentSearchStringVar } from '../../apollo/apolloClient';
 import { Loading } from '../../components/Loading';
 import Button from '../../components/Button';
 import { RickAndMortyCharacter } from '../../components/RickAndMortyCharacter';
-import { GET_RICK_AND_MORTY_CHARACTERS, GET_CHARACTERS_CURRENT_SEARCH_STRING } from '../../graphql/queries/queries.js';
+import {
+	GET_RICK_AND_MORTY_CHARACTERS,
+	GET_CHARACTERS_CURRENT_SEARCH_STRING,
+} from '../../graphql/queries/queries.js';
 
 import { reactiveVariableMutations } from '../../graphql/operations/mutations';
-import { charactersCurrentSearchStringVar, charactersCurrentSearchStringEVALVar } from '../../apollo/apolloClient';
-
+import {
+	charactersCurrentSearchStringVar,
+	charactersCurrentSearchStringEVALVar,
+} from '../../apollo/apolloClient';
 
 const GraphQLExample = () => {
-
 	const client = useApolloClient();
 	const { setCharactersCurrentSearchStringVar } = reactiveVariableMutations;
 
@@ -37,7 +34,7 @@ const GraphQLExample = () => {
 	const currentSearchStringReactiveVar = useReactiveVar(charactersCurrentSearchStringVar);
 
 	//  const {
-	//      loading: currentSearchStringLOADING, 
+	//      loading: currentSearchStringLOADING,
 	//      error: currentSearchStringERROR,
 	//      data: currentSearchStringDATA,
 	//      previousData: currentSearchStringPreviousDATA,
@@ -45,7 +42,9 @@ const GraphQLExample = () => {
 	//      GET_CHARACTERS_CURRENT_SEARCH_STRING,
 	//  );
 
-	const [getRickAndMortyCharacters, {
+	const [
+		getRickAndMortyCharacters,
+		{
 			loading: rickAndMortyCharactersLoading,
 			error: rickAndMortyCharactersError,
 			data: rickAndMortyCharactersDATA,
@@ -54,69 +53,70 @@ const GraphQLExample = () => {
 			fetchMore,
 			networkStatus,
 			called,
-		}] = useLazyQuery(
-			gql`${GET_RICK_AND_MORTY_CHARACTERS}`,
-			{
-				notifyOnNetworkStatusChange: true,
-				onCompleted: () => {
-					if (rickAndMortyCharactersDATA) {
-						const { characters: { info }} = rickAndMortyCharactersDATA;
-						const { characters: { results }} = rickAndMortyCharactersDATA;
-						if (info) {
-							setRickAndMortyCharactersInfo(info);
-							if (!info.prev && info.next) {
-								setRickAndMortyCharactersCurrentPage(1);
-							} else if (info.next && info.prev) {
-								setRickAndMortyCharactersCurrentPage(info.next - 1);
-							} else {
-								setRickAndMortyCharactersCurrentPage(info.pages);
-							}
+		},
+	] = useLazyQuery(
+		gql`
+			${GET_RICK_AND_MORTY_CHARACTERS}
+		`,
+		{
+			notifyOnNetworkStatusChange: true,
+			onCompleted: () => {
+				if (rickAndMortyCharactersDATA) {
+					const {
+						characters: { info },
+					} = rickAndMortyCharactersDATA;
+					const {
+						characters: { results },
+					} = rickAndMortyCharactersDATA;
+					if (info) {
+						setRickAndMortyCharactersInfo(info);
+						if (!info.prev && info.next) {
+							setRickAndMortyCharactersCurrentPage(1);
+						} else if (info.next && info.prev) {
+							setRickAndMortyCharactersCurrentPage(info.next - 1);
+						} else {
+							setRickAndMortyCharactersCurrentPage(info.pages);
 						}
-						if (results.length > 0) {
-							setRickAndMortyResults(true);
-						}
+					}
+					if (results.length > 0) {
+						setRickAndMortyResults(true);
 					}
 				}
-			}
-	);
-
-	useEffect(() => {
-			if (!componentDidMount) {
-				setComponentDidMount(true);
-			}
-
-			if (componentDidMount) {
-				// console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ComponentDidMount >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
-			}
+			},
 		},
-		[componentDidMount,]
 	);
 
 	useEffect(() => {
-			if (currentSearchStringReactiveVar) {
-				const currentSearchStringVar = currentSearchStringReactiveVar.currentSearchString;
+		if (!componentDidMount) {
+			setComponentDidMount(true);
+		}
 
-				if (currentSearchStringVar !== '') {
-					if (!rickAndMortyCharactersDATA) {
-						getRickAndMortyCharacters({ variables: { filter: {name: currentSearchStringVar }},});
-					}
+		if (componentDidMount) {
+			// console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ComponentDidMount >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
+		}
+	}, [componentDidMount]);
 
-					if (rickAndMortyCharactersDATA) {
-						refetch({ filter: {name: currentSearchStringVar }});
-					}
+	useEffect(() => {
+		if (currentSearchStringReactiveVar) {
+			const currentSearchStringVar = currentSearchStringReactiveVar.currentSearchString;
+
+			if (currentSearchStringVar !== '') {
+				if (!rickAndMortyCharactersDATA) {
+					getRickAndMortyCharacters({ variables: { filter: { name: currentSearchStringVar } } });
+				}
+
+				if (rickAndMortyCharactersDATA) {
+					refetch({ filter: { name: currentSearchStringVar } });
 				}
 			}
-		},
-		[currentSearchStringReactiveVar,]
-	);
+		}
+	}, [currentSearchStringReactiveVar]);
 
 	useEffect(() => {
-			if (toggleCacheView) {
-				setClientExtract(client.extract());
-			}
-		},
-		[toggleCacheView, rickAndMortyCharactersDATA]
-	);
+		if (toggleCacheView) {
+			setClientExtract(client.extract());
+		}
+	}, [toggleCacheView, rickAndMortyCharactersDATA]);
 
 	return (
 		<>
@@ -133,18 +133,21 @@ const GraphQLExample = () => {
 
 				<div className="bg-color-ivory container-padding-border-radius-1 overflow-wrap-break-word mb-5">
 					<div className="mb-3">
-
 						<div className="mb-3">
 							<h5>rickAndMortyCharactersDATA Data:</h5>
 						</div>
 
 						<div className="mb-3">
 							{networkStatus === NetworkStatus.refetch && (
-								<b><Loading text="Refetching" /></b>
+								<b>
+									<Loading text="Refetching" />
+								</b>
 							)}
 
 							{rickAndMortyCharactersLoading && (
-								<b><Loading text="Loading" /></b>
+								<b>
+									<Loading text="Loading" />
+								</b>
 							)}
 
 							{rickAndMortyCharactersError && (
@@ -157,13 +160,15 @@ const GraphQLExample = () => {
 								<div>
 									{rickAndMortyCharactersDATA.characters.results.map((character, index) => (
 										<div key={index} className="mb-3 container-padding-border-radius-2">
-											<RickAndMortyCharacter character={ character } />
+											<RickAndMortyCharacter character={character} />
 										</div>
 									))}
 								</div>
 							)}
 							{rickAndMortyCharactersDATA && !rickAndMortyResults && (
-								<div><b>Query Error: No data.</b></div>
+								<div>
+									<b>Query Error: No data.</b>
+								</div>
 							)}
 						</div>
 
@@ -180,7 +185,7 @@ const GraphQLExample = () => {
 							type="button"
 							className="btn-success btn-md"
 							onClick={() => setToggleCacheView(!toggleCacheView)}
-							buttonText={!clientExtract ? "View Apollo Cache" : "Toggle Cache View"}
+							buttonText={!clientExtract ? 'View Apollo Cache' : 'Toggle Cache View'}
 						/>
 					</div>
 
@@ -193,7 +198,7 @@ const GraphQLExample = () => {
 									className="form-control"
 									name="rickAndMortyCharactersFilterName"
 									defaultValue={rickAndMortyCharactersFilterName}
-									onChange={e => setRickAndMortyCharactersFilterName(e.target.value)}
+									onChange={(e) => setRickAndMortyCharactersFilterName(e.target.value)}
 									placeholder="Rick, Morty, Beth..."
 								/>
 							</div>
@@ -202,7 +207,9 @@ const GraphQLExample = () => {
 
 					{rickAndMortyCharactersCurrentPage && (
 						<div className="mb-3">
-							<b>Page {rickAndMortyCharactersCurrentPage} of {rickAndMortyCharactersInfo.pages}</b>
+							<b>
+								Page {rickAndMortyCharactersCurrentPage} of {rickAndMortyCharactersInfo.pages}
+							</b>
 						</div>
 					)}
 
@@ -210,7 +217,11 @@ const GraphQLExample = () => {
 						<Button
 							type="button"
 							className={`btn-success btn-md`}
-							onClick={() => setCharactersCurrentSearchStringVar({currentSearchString: rickAndMortyCharactersFilterName})}
+							onClick={() =>
+								setCharactersCurrentSearchStringVar({
+									currentSearchString: rickAndMortyCharactersFilterName,
+								})
+							}
 							buttonText="Get Characters"
 						/>
 					</div>
@@ -219,7 +230,9 @@ const GraphQLExample = () => {
 						<Button
 							type="button"
 							className={`btn-success btn-md`}
-							onClick={() => setCharactersCurrentSearchStringVar({currentSearchString: 'Rick'})}
+							onClick={() =>
+								setCharactersCurrentSearchStringVar({ currentSearchString: 'Rick' })
+							}
 							buttonText="Get Rick"
 						/>
 					</div>
@@ -228,7 +241,9 @@ const GraphQLExample = () => {
 						<Button
 							type="button"
 							className={`btn-success btn-md`}
-							onClick={() => setCharactersCurrentSearchStringVar({currentSearchString: 'Beth'})}
+							onClick={() =>
+								setCharactersCurrentSearchStringVar({ currentSearchString: 'Beth' })
+							}
 							buttonText="Get Beth"
 						/>
 					</div>
@@ -237,7 +252,9 @@ const GraphQLExample = () => {
 						<Button
 							type="button"
 							className={`btn-success btn-md`}
-							onClick={() => setCharactersCurrentSearchStringVar({currentSearchString: 'Morty'})}
+							onClick={() =>
+								setCharactersCurrentSearchStringVar({ currentSearchString: 'Morty' })
+							}
 							buttonText="Get Morty"
 						/>
 					</div>
@@ -246,10 +263,16 @@ const GraphQLExample = () => {
 						<div className="mb-3">
 							<Button
 								type="button"
-								className={`btn-primary btn-md ${rickAndMortyCharactersInfo ? rickAndMortyCharactersInfo.next ? '' : 'disabled' : null}`}
-								onClick={ () => {
+								className={`btn-primary btn-md ${
+									rickAndMortyCharactersInfo
+										? rickAndMortyCharactersInfo.next
+											? ''
+											: 'disabled'
+										: null
+								}`}
+								onClick={() => {
 									fetchMore({
-										variables: {page: rickAndMortyCharactersInfo.next,},
+										variables: { page: rickAndMortyCharactersInfo.next },
 									});
 								}}
 								buttonText="Fetch More"

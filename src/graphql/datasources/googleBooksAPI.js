@@ -5,7 +5,7 @@ const baseUrl = 'https://www.googleapis.com/books';
 export class GoogleBooksAPI extends RESTDataSource {
 	constructor() {
 		super();
-		this.baseURL = `${baseUrl}/v1/`
+		this.baseURL = `${baseUrl}/v1/`;
 	}
 
 	bookReducer(book) {
@@ -26,9 +26,13 @@ export class GoogleBooksAPI extends RESTDataSource {
 	async getBooks(searchString, orderBy) {
 		try {
 			// const route = `volumes?q=${searchString.split(' ').join('+')}&startIndex=${startIndex}&orderBy=${orderBy}&projection=lite&maxResults=${maxResults}`;
-			const route = `volumes?q=${searchString.split(' ').join('+')}&startIndex=0&orderBy=${orderBy}&projection=lite&maxResults=40`;
+			const route = `volumes?q=${searchString
+				.split(' ')
+				.join('+')}&startIndex=0&orderBy=${orderBy}&projection=lite&maxResults=40`;
 			const response = await this.get(route);
-			const reducedResponse = Array.isArray(response.items) ? response.items.map(book => this.bookReducer(book)) : [];
+			const reducedResponse = Array.isArray(response.items)
+				? response.items.map((book) => this.bookReducer(book))
+				: [];
 			return reducedResponse;
 		} catch (error) {
 			console.log(error);
@@ -36,7 +40,7 @@ export class GoogleBooksAPI extends RESTDataSource {
 		}
 	}
 
-	async getBook({id}) {
+	async getBook({ id }) {
 		try {
 			const route = `volumes/${id}`;
 			const response = await this.get(route);
@@ -47,4 +51,4 @@ export class GoogleBooksAPI extends RESTDataSource {
 			throw new Error(error);
 		}
 	}
-};
+}

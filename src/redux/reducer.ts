@@ -5,7 +5,7 @@ import { reducer as infoAlertThree, State as InfoAlertThreeState } from './modul
 import { reducer as theme, State as ThemeState } from './modules/theme';
 import { reducer as aboutCSV, State as AboutCSVState } from './modules/aboutCSV';
 
-export function rootReducer()  {
+export function rootReducer() {
 	return {
 		online: (v = true) => v,
 		device,
@@ -14,5 +14,5 @@ export function rootReducer()  {
 		infoAlertThree,
 		theme,
 		aboutCSV,
-	}
+	};
 }

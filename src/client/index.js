@@ -64,7 +64,10 @@ const render = async () => {
 
 	// =====================================================
 
-	const clientApollo = apolloClient({ uri: 'https://sleepy-wave-92667.herokuapp.com/graphql', ssrMode: false });
+	const clientApollo = apolloClient({
+		uri: 'http://localhost:8080/graphql/',
+		ssrMode: false,
+	});
 
 	// =====================================================
 
@@ -85,7 +88,9 @@ const render = async () => {
 					<Provider store={store}>
 						<Router history={history}>
 							<ThemeContext>
-								<RouterTrigger triggerProp={(pathname) => triggerHooks(hydrateRoutes, pathname)}>
+								<RouterTrigger
+									triggerProp={(pathname) => triggerHooks(hydrateRoutes, pathname)}
+								>
 									{renderRoutes(hydrateRoutes)}
 								</RouterTrigger>
 							</ThemeContext>

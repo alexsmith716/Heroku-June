@@ -8,7 +8,6 @@ export const apiClient = (): AxiosInstance => {
 
 	instance.interceptors.request.use(
 		(conf) => {
-
 			return conf;
 		},
 		(error) => Promise.reject(error),

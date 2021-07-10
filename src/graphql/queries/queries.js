@@ -1,5 +1,9 @@
 import { gql } from '@apollo/client';
-import { fragmentTypeRickAndMortyCharacter, fragmentTypeBook, fragmentTypeDroid } from '../fragments/fragments';
+import {
+	fragmentTypeRickAndMortyCharacter,
+	fragmentTypeBook,
+	fragmentTypeDroid,
+} from '../fragments/fragments';
 
 export const GET_HELLO = gql`
 	{
@@ -128,7 +132,7 @@ export const GET_A_DROID_ALIAS = gql`
 
 export const ADD_REVIEW = gql`
 	mutation createReview($episode: Episode, $review: ReviewInput!) {
-		createReview(episode: $episode, review: $review ) {
+		createReview(episode: $episode, review: $review) {
 			episode
 			stars
 			commentary

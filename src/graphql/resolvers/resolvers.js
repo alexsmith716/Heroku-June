@@ -3,7 +3,11 @@ import { GoogleBooksAPI } from '../datasources/googleBooksAPI';
 import { RickAndMortyAPI } from '../datasources/rickAndMortyAPI';
 import graphqlClient from '../../apollo/graphqlClient';
 
-import { GET_RICK_AND_MORTY_CHARACTER, GET_RICK_AND_MORTY_CHARACTERS, GET_RICK_AND_MORTY_CHARACTERS_BY_IDS, } from '../queries/queries';
+import {
+	GET_RICK_AND_MORTY_CHARACTER,
+	GET_RICK_AND_MORTY_CHARACTERS,
+	GET_RICK_AND_MORTY_CHARACTERS_BY_IDS,
+} from '../queries/queries';
 
 export const dataSources = () => ({
 	googleBooks: new GoogleBooksAPI(),
@@ -14,7 +18,7 @@ export const resolvers = {
 	Query: {
 		hello: () => 'Hello world!',
 
-		googleBooks: async (obj, { after, searchString, orderBy, pageSize = 2, }, { dataSources }) => {
+		googleBooks: async (obj, { after, searchString, orderBy, pageSize = 2 }, { dataSources }) => {
 			try {
 				const allGoogleBooks = await dataSources.googleBooks.getBooks(searchString, orderBy);
 				const books = paginateResults({ after, pageSize, results: allGoogleBooks });
@@ -22,8 +26,7 @@ export const resolvers = {
 				return {
 					cursor: books.length ? books[books.length - 1].cursor : null,
 					hasMore: books.length
-						? books[books.length - 1].cursor !==
-							allGoogleBooks[allGoogleBooks.length - 1].cursor
+						? books[books.length - 1].cursor !== allGoogleBooks[allGoogleBooks.length - 1].cursor
 						: false,
 					books,
 				};
