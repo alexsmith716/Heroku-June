@@ -1,5 +1,5 @@
 import { ApolloClient, InMemoryCache, makeVar, createHttpLink, ApolloLink } from '@apollo/client';
-import { RetryLink } from "@apollo/client/link/retry";
+import { RetryLink } from '@apollo/client/link/retry';
 import { onError } from '@apollo/client/link/error';
 import fetch from 'node-fetch';
 
@@ -16,7 +16,6 @@ export const googleBooksCurrentSearchStringVar = makeVar(googleBooksCurrentSearc
 export const charactersCurrentSearchStringVar = makeVar(charactersCurrentSearchStringInit);
 
 export function apolloClient({ uri, ssrMode = false }) {
-
 	const httpLink = createHttpLink({
 		uri: uri,
 		// fetch: ssrMode ? fetch : null,
@@ -38,19 +37,15 @@ export function apolloClient({ uri, ssrMode = false }) {
 
 	const errorLink = onError(({ graphQLErrors, networkError }) => {
 		if (graphQLErrors) {
-			console.error('>>> errorLink > graphQLErrors:', graphQLErrors[0].message)
+			console.error('>>> errorLink > graphQLErrors:', graphQLErrors[0].message);
 		}
 
 		if (networkError) {
-			console.error('>>>> apolloClient > [Network error]', networkError)
+			console.error('>>>> apolloClient > [Network error]', networkError);
 		}
 	});
 
-	const link = ApolloLink.from([
-		testDataErrors,
-		errorLink,
-		httpLink,
-	]);
+	const link = ApolloLink.from([testDataErrors, errorLink, httpLink]);
 
 	let cache = new InMemoryCache({
 		typePolicies: {
@@ -72,7 +67,7 @@ export function apolloClient({ uri, ssrMode = false }) {
 						read(existing, { args, readField }) {
 							if (!existing) return;
 							if (args && args.id) {
-								return existing.books.find(books => args.id === readField('id', books));
+								return existing.books.find((books) => args.id === readField('id', books));
 							}
 							return existing;
 						},
@@ -93,13 +88,12 @@ export function apolloClient({ uri, ssrMode = false }) {
 									books,
 								};
 							}
-						}
+						},
 					},
 					// --------------------------------------
 					characters: {
 						keyArgs: false,
 						merge(existing = {}, incoming, { args }) {
-
 							const page = args && args['page'];
 
 							let results = [];
@@ -117,9 +111,9 @@ export function apolloClient({ uri, ssrMode = false }) {
 							};
 						},
 					},
-				}
-			}
-		}
+				},
+			},
+		},
 	});
 
 	if (!ssrMode) {

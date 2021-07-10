@@ -7,10 +7,10 @@ export const typeDefs = gql`
 		hello: String
 
 		googleBooks(
-			after: String,
+			after: String
 			searchString: String!
 			orderBy: String!
-			pageSize: Int,
+			pageSize: Int
 		): GoogleBookConnection
 
 		googleBook(id: ID!): Book
@@ -23,10 +23,7 @@ export const typeDefs = gql`
 	}
 
 	type Mutation {
-		googleBookModifyFavorite(
-			id: ID!
-			favorite: Boolean
-		): GoogleBooksUpdateResponse!
+		googleBookModifyFavorite(id: ID!, favorite: Boolean): GoogleBooksUpdateResponse!
 	}
 
 	type RickAndMortyCharacterConnection {

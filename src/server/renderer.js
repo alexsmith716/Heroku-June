@@ -33,7 +33,6 @@ const webStats = path.resolve(__dirname, '../../dist/web/loadable-stats.json');
 // -------------------------------------------------------------------
 
 export async function get(req, res) {
-
 	const history = createMemoryHistory({ initialEntries: [req.originalUrl] });
 
 	const preloadedState = initialStatePreloaded(req);
@@ -52,7 +51,10 @@ export async function get(req, res) {
 
 	// =====================================================
 
-	const clientApollo = apolloClient({ uri: 'https://sleepy-wave-92667.herokuapp.com/graphql', ssrMode: true });
+	const clientApollo = apolloClient({
+		uri: 'http://localhost:8080/graphql/',
+		ssrMode: true,
+	});
 
 	// =====================================================
 	//	const nodeExtractor = new ChunkExtractor({
@@ -102,7 +104,6 @@ export async function get(req, res) {
 	}
 
 	try {
-
 		await asyncGetPromises(routes, req.path, store);
 
 		const extractor = new ChunkExtractor({ statsFile: webStats });
@@ -140,6 +141,6 @@ export async function get(req, res) {
 		return res.status(500).send(error);
 		hydrate();
 	} finally {
-		sheet.seal()
+		sheet.seal();
 	}
-};
+}

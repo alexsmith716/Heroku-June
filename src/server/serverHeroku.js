@@ -7,13 +7,12 @@ import { isBot } from '../utils/device';
 const port = process.env.PORT;
 
 export function startServer() {
-
 	const app = express();
 
 	// =====================================================
 
 	app.use(express.static('dist'));
-	
+
 	app.use((req, res, next) => {
 		req.userAgent = getUserAgent(req.headers['user-agent']);
 		req.isBot = isBot(req.headers['user-agent']);
@@ -22,10 +21,13 @@ export function startServer() {
 
 	apolloServer(app);
 
-	app.get('*', (req, res, next) => { 
+	app.get(
+		'*',
+		(req, res, next) => {
 			//console.log('>>>> SERVER > RENDERER !!!! ===========================');
 			next();
-		}, renderer.get
+		},
+		renderer.get,
 	);
 
 	// =====================================================
@@ -35,6 +37,6 @@ export function startServer() {
 	server.listen(port, () => {
 		//console.log(`Listening at 8080 ++++++++++++++++++`);
 	});
-	
+
 	return app;
 }

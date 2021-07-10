@@ -1,23 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
-import {
-	useQuery,
-	useLazyQuery,
-	useApolloClient,
-	NetworkStatus,
-	useReactiveVar,
-	gql,
-} from '@apollo/client';
+import { useQuery, useLazyQuery, useApolloClient, NetworkStatus, useReactiveVar, gql } from '@apollo/client';
 
 import { Loading } from '../../components/Loading';
 import Button from '../../components/Button';
-import { GoogleBookBook, } from '../../components/GoogleBookBook';
-import { GET_GOOGLE_BOOKS, GET_GOOGLE_BOOK, GET_GOOGLE_BOOKS_CURRENT_SEARCH_STRING } from '../../graphql/queries/queries.js';
+import { GoogleBookBook } from '../../components/GoogleBookBook';
+import {
+	GET_GOOGLE_BOOKS,
+	GET_GOOGLE_BOOK,
+	GET_GOOGLE_BOOKS_CURRENT_SEARCH_STRING,
+} from '../../graphql/queries/queries.js';
 import { reactiveVariableMutations } from '../../graphql/operations/mutations';
 import { googleBooksCurrentSearchStringVar } from '../../apollo/apolloClient';
 
 const RESTfulExample = () => {
-
 	const client = useApolloClient();
 	const [clientExtract, setClientExtract] = useState(null);
 	const [toggleCacheView, setToggleCacheView] = useState(false);
@@ -36,11 +32,10 @@ const RESTfulExample = () => {
 	const [lastOnCompleted, setLastOnCompleted] = useState(null);
 
 	const onCompleted = (data) => {
-
 		console.log('>>>>>>>>>>>>>>>>>>>>>>>> RESTfulExample > QUERY > Completed ++++++++++++++++++++');
 
-		setLastOnCompleted(currentSearchStringReactiveVar.currentSearchString)
-		setQueryError(null)
+		setLastOnCompleted(currentSearchStringReactiveVar.currentSearchString);
+		setQueryError(null);
 
 		if (data.googleBooks.cursor === currentGoogleBooksCursor) {
 			setGoogleBooksFetchMoreError(true);
@@ -48,14 +43,16 @@ const RESTfulExample = () => {
 		if (data.googleBooks.cursor !== currentGoogleBooksCursor) {
 			setGoogleBooksFetchMoreError(false);
 		}
-		setCurrentGoogleBooksCursor(data.googleBooks.cursor)
+		setCurrentGoogleBooksCursor(data.googleBooks.cursor);
 	};
 
 	const onError = (error) => {
 		console.log('>>>>>>>>>>>>>>>>>>>>>>>> RESTfulExample > QUERY > Error ++++++++++++++++++++');
-	}
+	};
 
-	const [getGoogleBooks, {
+	const [
+		getGoogleBooks,
+		{
 			loading: googleBooksLOADING,
 			error: googleBooksERROR,
 			data: googleBooksDATA,
@@ -64,97 +61,81 @@ const RESTfulExample = () => {
 			fetchMore,
 			networkStatus,
 			called,
-		}] = useLazyQuery(
-			GET_GOOGLE_BOOKS,
-			{
-				fetchPolicy: 'cache-first',
-				errorPolicy: 'none',
-				variables: {
-					orderBy: 'newest',
-				},
-				notifyOnNetworkStatusChange: true,
-				onCompleted,
-				onError,
-			}
-	);
-
-	const [getGoogleBook, {
-			loading: googleBookLOADING, 
-			error: googleBookERROR,
-			data: googleBookDATA,
-		}] = useLazyQuery(
-			GET_GOOGLE_BOOK,
-	);
-
-	useEffect(() => {
-			if (readQueryGetGoogleBooks) {
-				getGoogleBooks({ variables: { searchString: currentSearchStringReactiveVar.currentSearchStringCopy },});
-			}
 		},
-		[readQueryGetGoogleBooks]
-	);
-
-	useEffect(() => {
-			setReadQueryGetGoogleBooks(client.readQuery({ query: GET_GOOGLE_BOOKS, }))
+	] = useLazyQuery(GET_GOOGLE_BOOKS, {
+		fetchPolicy: 'cache-first',
+		errorPolicy: 'none',
+		variables: {
+			orderBy: 'newest',
 		},
-		[]
-	);
+		notifyOnNetworkStatusChange: true,
+		onCompleted,
+		onError,
+	});
+
+	const [getGoogleBook, { loading: googleBookLOADING, error: googleBookERROR, data: googleBookDATA }] =
+		useLazyQuery(GET_GOOGLE_BOOK);
 
 	useEffect(() => {
-			if (currentSearchStringReactiveVar) {
-				const currentSearchStringVar = currentSearchStringReactiveVar.currentSearchString;
+		if (readQueryGetGoogleBooks) {
+			getGoogleBooks({
+				variables: { searchString: currentSearchStringReactiveVar.currentSearchStringCopy },
+			});
+		}
+	}, [readQueryGetGoogleBooks]);
 
-				if (currentSearchStringVar !== '') {
-					if (!googleBooksDATA) {
-						getGoogleBooks({ variables: { searchString: currentSearchStringVar },});
-					}
+	useEffect(() => {
+		setReadQueryGetGoogleBooks(client.readQuery({ query: GET_GOOGLE_BOOKS }));
+	}, []);
 
-					if (googleBooksDATA) {
-						googleBooksREFETCH({ searchString: currentSearchStringVar });
-					}
+	useEffect(() => {
+		if (currentSearchStringReactiveVar) {
+			const currentSearchStringVar = currentSearchStringReactiveVar.currentSearchString;
+
+			if (currentSearchStringVar !== '') {
+				if (!googleBooksDATA) {
+					getGoogleBooks({ variables: { searchString: currentSearchStringVar } });
+				}
+
+				if (googleBooksDATA) {
+					googleBooksREFETCH({ searchString: currentSearchStringVar });
 				}
 			}
-		},
-		[currentSearchStringReactiveVar,]
-	);
+		}
+	}, [currentSearchStringReactiveVar]);
 
 	useEffect(() => {
-			if (toggleCacheView) {
-				setClientExtract(client.extract());
-			}
-		},
-		[toggleCacheView, googleBooksDATA]
-	);
+		if (toggleCacheView) {
+			setClientExtract(client.extract());
+		}
+	}, [toggleCacheView, googleBooksDATA]);
 
 	useEffect(() => {
-			if (googleBooksLOADING) {
-				setQueryError(null)
-			}
-		},
-		[googleBooksLOADING]
-	);
+		if (googleBooksLOADING) {
+			setQueryError(null);
+		}
+	}, [googleBooksLOADING]);
 
 	useEffect(() => {
-			if (googleBooksERROR) {
-				const c = currentSearchStringReactiveVar.currentSearchStringCopy;
-				setGoogleBooksCurrentSearchStringVar({currentSearchString: '', currentSearchStringCopy: c})
-				// setQueryError(googleBooksERROR.message)
-				setQueryError('NetworkError when attempting to fetch resource.')
-			}
-		},
-		[googleBooksERROR]
-	);
+		if (googleBooksERROR) {
+			const c = currentSearchStringReactiveVar.currentSearchStringCopy;
+			setGoogleBooksCurrentSearchStringVar({ currentSearchString: '', currentSearchStringCopy: c });
+			// setQueryError(googleBooksERROR.message)
+			setQueryError('NetworkError when attempting to fetch resource.');
+		}
+	}, [googleBooksERROR]);
 
 	useEffect(() => {
-			if (googleBooksFetchMoreError) {
-				setQueryError('NetworkError when attempting to fetch more resources.');
-			}
-		},
-		[googleBooksFetchMoreError]
-	);
+		if (googleBooksFetchMoreError) {
+			setQueryError('NetworkError when attempting to fetch more resources.');
+		}
+	}, [googleBooksFetchMoreError]);
 
 	function setQueryVars(searchVar) {
-		setGoogleBooksCurrentSearchStringVar({currentSearchString: searchVar, currentSearchStringCopy: searchVar})
+		setGoogleBooksCurrentSearchStringVar({
+			currentSearchString: searchVar,
+			currentSearchStringCopy: searchVar,
+		});
 	}
 
 	return (
@@ -162,33 +143,31 @@ const RESTfulExample = () => {
 			<Helmet title="REST Example" />
 
 			<div className="container">
-
 				<h1 className="mt-4 mb-3">REST Example</h1>
 
 				<div className="bg-color-ivory container-padding-border-radius-1 overflow-wrap-break-word mb-5">
 					<div className="mb-3">
-
 						<div className="mb-3">
 							<h5>getGoogleBooks Data:</h5>
 						</div>
 
-						{googleBooksLOADING &&
+						{googleBooksLOADING && (
 							<div className="bg-progress-blue container-padding-radius-10 text-color-white overflow-wrap-break-word mb-3">
 								<Loading text="Loading" />
 							</div>
-						}
+						)}
 
-						{queryError &&
+						{queryError && (
 							<div className="bg-warn-red container-padding-radius-10 text-color-white overflow-wrap-break-word mb-3">
 								{queryError}
 							</div>
-						}
+						)}
 
 						{googleBooksDATA && (
 							<div>
 								{googleBooksDATA.googleBooks.books.map((book, index) => (
 									<div key={index} className="mb-3 container-padding-border-radius-2">
-										<GoogleBookBook book={ book } />
+										<GoogleBookBook book={book} />
 									</div>
 								))}
 							</div>
@@ -210,7 +189,7 @@ const RESTfulExample = () => {
 									className="form-control"
 									name="googleBooksSearchInput"
 									value={googleBooksSearchInput}
-									onChange={e => setGoogleBooksSearchInput(e.target.value)}
+									onChange={(e) => setGoogleBooksSearchInput(e.target.value)}
 									placeholder="Search Google Books"
 								/>
 							</div>
@@ -221,22 +200,20 @@ const RESTfulExample = () => {
 						<Button
 							type="button"
 							className="btn-success btn-md"
-							onClick={
-								() => {
-									setQueryError(null);
-									setQueryVars(googleBooksSearchInput);
-								}
-							}
+							onClick={() => {
+								setQueryError(null);
+								setQueryVars(googleBooksSearchInput);
+							}}
 							buttonText="Get Google Books"
 						/>
 					</div>
 
-					{(googleBooksDATA && googleBooksDATA.googleBooks.cursor && lastOnCompleted) && (
+					{googleBooksDATA && googleBooksDATA.googleBooks.cursor && lastOnCompleted && (
 						<div className="mb-3">
 							<Button
 								type="button"
 								className="btn-primary btn-md"
-								onClick={ async () => {
+								onClick={async () => {
 									await fetchMore({
 										variables: {
 											searchString: lastOnCompleted,
@@ -248,7 +225,6 @@ const RESTfulExample = () => {
 							/>
 						</div>
 					)}
-
 				</div>
 			</div>
 		</>

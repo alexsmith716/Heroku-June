@@ -21,17 +21,32 @@ const About = () => {
 
 				<div className="row-grid grid-six bg-lightskyblue-1 mb-5">
 					<div className="col-grid mb-4">
-						<Styles.AboutImageMain className="img-fluid rounded" src={'/about-750-450.png'} alt={""} />
+						<Styles.AboutImageMain
+							className="img-fluid rounded"
+							src={'/about-750-450.png'}
+							alt={''}
+						/>
 					</div>
 
 					<div className="col-grid">
 						<h2>About Alex Smith's App</h2>
-						<p><b>This component utilizes the CSS Grid Layout module.</b></p>
 						<p>
-							"Other than in Internet Explorer, CSS Grid Layout is unprefixed in Safari, Chrome, Opera, Firefox and Edge. Support for all the properties and values detailed in these guides is interoperable across browsers. This means that if you write some Grid Layout code in Firefox, it should work in the same way in Chrome. This is no longer an experimental specification, and you are safe to use it in production."
+							<b>This component utilizes the CSS Grid Layout module.</b>
 						</p>
 						<p>
-							CSS Grid Layout supporting browsers documented here: <span className="word-break-all"><b>"https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout/CSS_Grid_and_Progressive_Enhancement#the_supporting_browsers"</b></span>
+							"Other than in Internet Explorer, CSS Grid Layout is unprefixed in Safari, Chrome,
+							Opera, Firefox and Edge. Support for all the properties and values detailed in
+							these guides is interoperable across browsers. This means that if you write some
+							Grid Layout code in Firefox, it should work in the same way in Chrome. This is no
+							longer an experimental specification, and you are safe to use it in production."
+						</p>
+						<p>
+							CSS Grid Layout supporting browsers documented here:{' '}
+							<span className="word-break-all">
+								<b>
+									"https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout/CSS_Grid_and_Progressive_Enhancement#the_supporting_browsers"
+								</b>
+							</span>
 						</p>
 						<p>
 							Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et, consequuntur, modi
@@ -60,35 +75,67 @@ const About = () => {
 
 				<div className="row-grid grid-two bg-color-cadetblue mb-5">
 					<div className="col-grid mb-4">
-						<Styles.AboutImageMain className="img-fluid rounded" src={'/about-750-450.png'} alt={""} />
+						<Styles.AboutImageMain
+							className="img-fluid rounded"
+							src={'/about-750-450.png'}
+							alt={''}
+						/>
 					</div>
 
 					<div className="col-grid mb-4">
-						<Styles.AboutImageMain className="img-fluid rounded" src={'/about-750-450.png'} alt={""} />
+						<Styles.AboutImageMain
+							className="img-fluid rounded"
+							src={'/about-750-450.png'}
+							alt={''}
+						/>
 					</div>
 
 					<div className="col-grid mb-4">
-						<Styles.AboutImageMain className="img-fluid rounded" src={'/about-750-450.png'} alt={""} />
+						<Styles.AboutImageMain
+							className="img-fluid rounded"
+							src={'/about-750-450.png'}
+							alt={''}
+						/>
 					</div>
 
 					<div className="col-grid mb-4">
-						<Styles.AboutImageMain className="img-fluid rounded" src={'/about-750-450.png'} alt={""} />
+						<Styles.AboutImageMain
+							className="img-fluid rounded"
+							src={'/about-750-450.png'}
+							alt={''}
+						/>
 					</div>
 
 					<div className="col-grid mb-4">
-						<Styles.AboutImageMain className="img-fluid rounded" src={'/about-750-450.png'} alt={""} />
+						<Styles.AboutImageMain
+							className="img-fluid rounded"
+							src={'/about-750-450.png'}
+							alt={''}
+						/>
 					</div>
 
 					<div className="col-grid mb-4">
-						<Styles.AboutImageMain className="img-fluid rounded" src={'/about-750-450.png'} alt={""} />
+						<Styles.AboutImageMain
+							className="img-fluid rounded"
+							src={'/about-750-450.png'}
+							alt={''}
+						/>
 					</div>
 
 					<div className="col-grid mb-4">
-						<Styles.AboutImageMain className="img-fluid rounded" src={'/about-750-450.png'} alt={""} />
+						<Styles.AboutImageMain
+							className="img-fluid rounded"
+							src={'/about-750-450.png'}
+							alt={''}
+						/>
 					</div>
 
 					<div className="col-grid mb-4">
-						<Styles.AboutImageMain className="img-fluid rounded" src={'/about-750-450.png'} alt={""} />
+						<Styles.AboutImageMain
+							className="img-fluid rounded"
+							src={'/about-750-450.png'}
+							alt={''}
+						/>
 					</div>
 				</div>
 
@@ -96,12 +143,18 @@ const About = () => {
 
 				<div className="row-grid grid-two bg-color-cadetblue mb-5">
 					<div className="col-grid mb-4">
-						<Styles.AboutImageMain className="img-fluid rounded" src={'/about-750-450.png'} alt={""} />
+						<Styles.AboutImageMain
+							className="img-fluid rounded"
+							src={'/about-750-450.png'}
+							alt={''}
+						/>
 					</div>
 
 					<div className="col-grid">
 						<h2>About Alex Smith's App 2022</h2>
-						<p><b>This component utilizes the CSS Grid Layout module.</b></p>
+						<p>
+							<b>This component utilizes the CSS Grid Layout module.</b>
+						</p>
 						<p>
 							Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe, magni, aperiam
 							vitae illum voluptatum aut sequi impedit non velit ab ea pariatur sint quidem
@@ -189,31 +242,59 @@ const About = () => {
 
 				<div className="row-flex bg-color-banana mb-5">
 					<div className="col-two mb-4">
-						<Styles.AboutImageMain className="img-fluid rounded" src={'/about-750-450.png'} alt={""} />
+						<Styles.AboutImageMain
+							className="img-fluid rounded"
+							src={'/about-750-450.png'}
+							alt={''}
+						/>
 					</div>
 
 					<div className="col-two mb-4">
-						<Styles.AboutImageMain className="img-fluid rounded" src={'/about-750-450.png'} alt={""} />
+						<Styles.AboutImageMain
+							className="img-fluid rounded"
+							src={'/about-750-450.png'}
+							alt={''}
+						/>
 					</div>
 
 					<div className="col-two mb-4">
-						<Styles.AboutImageMain className="img-fluid rounded" src={'/about-750-450.png'} alt={""} />
+						<Styles.AboutImageMain
+							className="img-fluid rounded"
+							src={'/about-750-450.png'}
+							alt={''}
+						/>
 					</div>
 
 					<div className="col-two mb-4">
-						<Styles.AboutImageMain className="img-fluid rounded" src={'/about-750-450.png'} alt={""} />
+						<Styles.AboutImageMain
+							className="img-fluid rounded"
+							src={'/about-750-450.png'}
+							alt={''}
+						/>
 					</div>
 
 					<div className="col-two mb-4">
-						<Styles.AboutImageMain className="img-fluid rounded" src={'/about-750-450.png'} alt={""} />
+						<Styles.AboutImageMain
+							className="img-fluid rounded"
+							src={'/about-750-450.png'}
+							alt={''}
+						/>
 					</div>
 
 					<div className="col-two mb-4">
-						<Styles.AboutImageMain className="img-fluid rounded" src={'/about-750-450.png'} alt={""} />
+						<Styles.AboutImageMain
+							className="img-fluid rounded"
+							src={'/about-750-450.png'}
+							alt={''}
+						/>
 					</div>
 
 					<div className="col-two mb-4">
-						<Styles.AboutImageMain className="img-fluid rounded" src={'/about-750-450.png'} alt={""} />
+						<Styles.AboutImageMain
+							className="img-fluid rounded"
+							src={'/about-750-450.png'}
+							alt={''}
+						/>
 					</div>
 				</div>
 
@@ -221,12 +302,18 @@ const About = () => {
 
 				<div className="row-flex bg-color-banana mb-5">
 					<div className="col-two mb-4">
-						<Styles.AboutImageMain className="img-fluid rounded" src={'/about-750-450.png'} alt={""} />
+						<Styles.AboutImageMain
+							className="img-fluid rounded"
+							src={'/about-750-450.png'}
+							alt={''}
+						/>
 					</div>
 
 					<div className="col-two">
 						<h2>About Alex Smith's App 2022</h2>
-						<p><b>This component utilizes the CSS Flexible Box Layout module.</b></p>
+						<p>
+							<b>This component utilizes the CSS Flexible Box Layout module.</b>
+						</p>
 						<p>
 							Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe, magni, aperiam
 							vitae illum voluptatum aut sequi impedit non velit ab ea pariatur sint quidem
@@ -314,12 +401,18 @@ const About = () => {
 
 				<div className="row-flex bg-color-plum mb-5">
 					<div className="col-four mb-4">
-						<Styles.AboutImageMain className="img-fluid rounded" src={'/about-750-450.png'} alt={""} />
+						<Styles.AboutImageMain
+							className="img-fluid rounded"
+							src={'/about-750-450.png'}
+							alt={''}
+						/>
 					</div>
 
 					<div className="col-four">
 						<h2>About Alex Smith's App 2022</h2>
-						<p><b>This component utilizes the CSS Flexible Box Layout module.</b></p>
+						<p>
+							<b>This component utilizes the CSS Flexible Box Layout module.</b>
+						</p>
 						<p>
 							Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe, magni, aperiam
 							vitae illum voluptatum aut sequi impedit non velit ab ea pariatur sint quidem
@@ -349,7 +442,9 @@ const About = () => {
 
 					<div className="col-four">
 						<h2>About Alex Smith's App 2022</h2>
-						<p><b>This component utilizes the CSS Flexible Box Layout module.</b></p>
+						<p>
+							<b>This component utilizes the CSS Flexible Box Layout module.</b>
+						</p>
 						<p>
 							Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe, magni, aperiam
 							vitae illum voluptatum aut sequi impedit non velit ab ea pariatur sint quidem
@@ -367,12 +462,18 @@ const About = () => {
 
 				<div className="row-flex bg-color-olivedrab-2 mb-5">
 					<div className="col-six mb-4">
-						<Styles.AboutImageMain className="img-fluid rounded" src={'/about-750-450.png'} alt={""} />
+						<Styles.AboutImageMain
+							className="img-fluid rounded"
+							src={'/about-750-450.png'}
+							alt={''}
+						/>
 					</div>
 
 					<div className="col-six">
 						<h2>About Alex Smith's App 2022</h2>
-						<p><b>This component utilizes the CSS Flexible Box Layout module.</b></p>
+						<p>
+							<b>This component utilizes the CSS Flexible Box Layout module.</b>
+						</p>
 						<p>
 							Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe, magni, aperiam
 							vitae illum voluptatum aut sequi impedit non velit ab ea pariatur sint quidem
@@ -406,7 +507,9 @@ const About = () => {
 				<div className="card-container-grid mb-5">
 					<div className="container-padding-border-radius-2">
 						<div>
-							<p><b>Card Title 1</b></p>
+							<p>
+								<b>Card Title 1</b>
+							</p>
 							<div>
 								<p>
 									Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac
@@ -423,7 +526,9 @@ const About = () => {
 
 					<div className="container-padding-border-radius-2">
 						<div>
-							<p><b>Card Title 2</b></p>
+							<p>
+								<b>Card Title 2</b>
+							</p>
 							<div>
 								<p>
 									Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac
@@ -440,7 +545,9 @@ const About = () => {
 
 					<div className="container-padding-border-radius-2">
 						<div>
-							<p><b>Card Title 3</b></p>
+							<p>
+								<b>Card Title 3</b>
+							</p>
 							<div>
 								<p>
 									Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac
@@ -458,47 +565,77 @@ const About = () => {
 
 				{/* ---------------------------------------------- */}
 
-				<h2 className="color-salmon mb-3">
-					Demo Component State By Toggling Our Customers!
-				</h2>
+				<h2 className="color-salmon mb-3">Demo Component State By Toggling Our Customers!</h2>
 
 				<div className={`${toggleCustomerState ? 'mb-4' : 'mb-5'}`}>
 					<Button
 						type="button"
 						className={`btn-${toggleCustomerState ? 'success' : 'warning'}`}
 						onClick={() => setToggleCustomerState(!toggleCustomerState)}
-						buttonText={toggleCustomerState ? "They're All Here!" : "Now they're Gone! But just make sure they always keep coming back!"}
+						buttonText={
+							toggleCustomerState
+								? "They're All Here!"
+								: "Now they're Gone! But just make sure they always keep coming back!"
+						}
 					/>
 				</div>
 
 				{toggleCustomerState && (
 					<div className="row-flex mb-5">
 						<div className="col-two mb-4">
-							<Styles.AboutImageOurCustomers className="img-fluid rounded" src={'/about-500-300.png'} alt={""} />
+							<Styles.AboutImageOurCustomers
+								className="img-fluid rounded"
+								src={'/about-500-300.png'}
+								alt={''}
+							/>
 						</div>
 
 						<div className="col-two mb-4">
-							<Styles.AboutImageOurCustomers className="img-fluid rounded" src={'/about-500-300.png'} alt={""} />
+							<Styles.AboutImageOurCustomers
+								className="img-fluid rounded"
+								src={'/about-500-300.png'}
+								alt={''}
+							/>
 						</div>
 
 						<div className="col-two mb-4">
-							<Styles.AboutImageOurCustomers className="img-fluid rounded" src={'/about-500-300.png'} alt={""} />
+							<Styles.AboutImageOurCustomers
+								className="img-fluid rounded"
+								src={'/about-500-300.png'}
+								alt={''}
+							/>
 						</div>
 
 						<div className="col-two mb-4">
-							<Styles.AboutImageOurCustomers className="img-fluid rounded" src={'/about-500-300.png'} alt={""} />
+							<Styles.AboutImageOurCustomers
+								className="img-fluid rounded"
+								src={'/about-500-300.png'}
+								alt={''}
+							/>
 						</div>
 
 						<div className="col-two mb-4">
-							<Styles.AboutImageOurCustomers className="img-fluid rounded" src={'/about-500-300.png'} alt={""} />
+							<Styles.AboutImageOurCustomers
+								className="img-fluid rounded"
+								src={'/about-500-300.png'}
+								alt={''}
+							/>
 						</div>
 
 						<div className="col-two mb-4">
-							<Styles.AboutImageOurCustomers className="img-fluid rounded" src={'/about-500-300.png'} alt={""} />
+							<Styles.AboutImageOurCustomers
+								className="img-fluid rounded"
+								src={'/about-500-300.png'}
+								alt={''}
+							/>
 						</div>
 
 						<div className="col-two mb-4">
-							<Styles.AboutImageOurCustomers className="img-fluid rounded" src={'/about-500-300.png'} alt={""} />
+							<Styles.AboutImageOurCustomers
+								className="img-fluid rounded"
+								src={'/about-500-300.png'}
+								alt={''}
+							/>
 						</div>
 					</div>
 				)}

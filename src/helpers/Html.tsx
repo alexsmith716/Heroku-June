@@ -19,7 +19,6 @@ const Html: React.FC<Props> = ({
 	styledComponents,
 	graphqlState,
 }) => {
-
 	return (
 		<html lang="en-US">
 			<head>

@@ -1,7 +1,6 @@
 import fetch from 'node-fetch';
 
-const graphqlClient = ({ endpoint, query, variables={}, method='POST' }) => {
-
+const graphqlClient = ({ endpoint, query, variables = {}, method = 'POST' }) => {
 	return fetch(endpoint, {
 		method: method,
 		headers: {
@@ -9,17 +8,17 @@ const graphqlClient = ({ endpoint, query, variables={}, method='POST' }) => {
 		},
 		body: JSON.stringify({
 			query: query,
-			variables: {...variables}
+			variables: { ...variables },
 		}),
 	})
-		.then(response => response.json())
-		.then(data => {
+		.then((response) => response.json())
+		.then((data) => {
 			if (data.error) {
 				throw new Error(data.error);
 			}
 			return data;
 		})
-		.catch(err => {
+		.catch((err) => {
 			return null;
 		});
 };

@@ -11,6 +11,7 @@ export function isMobile(ua) {
 }
 
 export function isBot(ua) {
-	const b = /curl|bot|googlebot|google|baidu|bing|msn|duckduckgo|teoma|slurp|yandex|crawler|spider|robot|crawling/i;
+	const b =
+		/curl|bot|googlebot|google|baidu|bing|msn|duckduckgo|teoma|slurp|yandex|crawler|spider|robot|crawling/i;
 	return b.test(ua);
 }

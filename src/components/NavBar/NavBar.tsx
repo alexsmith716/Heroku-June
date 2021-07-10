@@ -11,15 +11,6 @@ import { useTheme } from '../../styled/ThemeContext';
 //    theme: ThemeState;
 //  };
 
-//{activeRoute !== '/' && (
-//	<Styles.NavBarBrandLink
-//		to="/"
-//		onClick={() => setClicked(false)}
-//	>
-//		Home
-//	</Styles.NavBarBrandLink>
-//)}
-
 export const NavBar: React.FC = () => {
 	const themeMode = useTheme();
 	const location = useLocation();
@@ -40,11 +31,7 @@ export const NavBar: React.FC = () => {
 		<Styles.NavBar>
 			<div className="container">
 				<Styles.Expand>
-
-					<Styles.NavBarBrandLink
-						to="/"
-						onClick={() => setClicked(false)}
-					>
+					<Styles.NavBarBrandLink to="/" onClick={() => setClicked(false)}>
 						{activeRoute !== '/' ? 'Home' : null}
 					</Styles.NavBarBrandLink>
 

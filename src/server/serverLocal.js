@@ -26,9 +26,12 @@ export function startServer() {
 
 	apolloServer(app);
 
-	app.get('*', (req, res, next) => { 
+	app.get(
+		'*',
+		(req, res, next) => {
 			next();
-		}, renderer.get
+		},
+		renderer.get,
 	);
 
 	// =====================================================
@@ -40,7 +43,7 @@ export function startServer() {
 			console.log(`Listening on ${port}`);
 		});
 
-		server.on('error', err => {
+		server.on('error', (err) => {
 			if (err.syscall !== 'listen') throw err;
 
 			const bind = typeof port === 'string' ? `Pipe ${port}` : `Port ${port}`;
