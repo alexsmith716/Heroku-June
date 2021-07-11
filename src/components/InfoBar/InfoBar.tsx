@@ -6,6 +6,9 @@ import { Loading } from '../Loading';
 import Button from '../Button';
 import * as Styles from './styles';
 
+// https://redux.js.org/usage/usage-with-typescript
+// https://react-redux.js.org/using-react-redux/usage-with-typescript
+
 export type State = {
 	info: InfoState;
 };
@@ -18,7 +21,7 @@ export const InfoBar: React.FC = () => {
 	const errorResponse = useSelector((state: State) => state.info.errorResponse);
 	const data = useSelector((state: State) => state.info.data);
 
-	const doLoadInfo = async () => {
+	const doLoadInfo = async (): Promise<void> => {
 		try {
 			await dispatch(loadInfo());
 		} catch (error) {

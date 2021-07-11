@@ -8,12 +8,7 @@ export type Props = {
 	disabled?: boolean;
 };
 
-const Button: React.FC<Props> = ({
-	className,
-	onClick = () => null,
-	type = 'button',
-	buttonText = 'button',
-}) => {
+const Button: React.FC<Props> = ({ className, onClick, type = 'button', buttonText = 'button' }) => {
 	return (
 		<button className={`btn ${className}`} onClick={onClick} type={type}>
 			{buttonText}

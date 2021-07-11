@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Route, useLocation } from 'react-router-dom';
 
 export type Props = {
-	triggerProp: (location: string) => Promise<any>;
+	triggerProp: (location: string) => Promise<string>;
 	children: React.ReactNode;
 };
 
@@ -40,15 +40,9 @@ const RouterTrigger: React.FC<Props> = ({ triggerProp, children }) => {
 					window.scrollTo(0, 0);
 				});
 		}
-
-		return () => {
-			console.log(
-				'>>>>>>>>>>>>>>>>>>>>>>>> RouterTrigger useEffect() > componentWillUnmount > cleanup phase',
-			);
-		};
 	}, [needTrigger, location.pathname, locationState, triggerProp]);
 
-	return <Route location={prevLocationState || location} render={() => children} />;
+	return <Route location={prevLocationState || location} render={(): React.ReactNode => children} />;
 };
 
 export default RouterTrigger;
