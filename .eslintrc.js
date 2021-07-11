@@ -14,13 +14,6 @@ module.exports = {
 		}
 	},
 
-	globals: {
-		__DEVELOPMENT__: true,
-		__CLIENT__: true,
-		__SERVER__: true,
-		__DISABLE_SSR__: true
-	},
-
 	settings: {
 		react: {
 			pragma: 'React',
