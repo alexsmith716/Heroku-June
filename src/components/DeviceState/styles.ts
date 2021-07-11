@@ -9,20 +9,20 @@ export const DeviceStateStyled = styled.div`
 
 export const StoreStateOnline = styled.div`
 	color: ${AppColors.colors.olive};
-	font-family: "OpenSansBold", sans-serif;
+	font-family: 'OpenSansBold', sans-serif;
 `;
 
 export const StoreStateUserAgent = styled.div`
 	color: ${AppColors.colors.crimson};
-	font-family: "PhilosopherBold", sans-serif;
+	font-family: 'PhilosopherBold', sans-serif;
 `;
 
 export const StoreStateIsBot = styled.div`
 	color: ${AppColors.colors.orangered};
-	font-family: "Norwester", sans-serif;
+	font-family: 'Norwester', sans-serif;
 `;
 
 export const StoreStateBlurb = styled.div`
 	color: ${AppColors.colors.mediumspringgreen};
-	font-family: "OldEnglish", sans-serif;
+	font-family: 'OldEnglish', sans-serif;
 `;

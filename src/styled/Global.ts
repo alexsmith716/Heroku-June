@@ -17,16 +17,16 @@ export const GlobalStyle = createGlobalStyle`
 		padding: 0;
 	}
 
-	body {
-		padding-top: 56px;
-		margin: 0;
-		font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-		font-size: 16px;
-		font-weight: 400;
-		line-height: 1.5;
-		text-align: left;
-		${bodyTheme}
-	}
+  body {
+    padding-top: 56px;
+    margin: 0;
+    font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.5;
+    text-align: left;
+    ${bodyTheme}
+  }
 
 	hr {
 		box-sizing: content-box;

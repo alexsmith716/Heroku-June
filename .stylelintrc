@@ -25,7 +25,7 @@
 		'number-max-precision': 2,
 		'property-case': 'lower',
 		'property-no-vendor-prefix': null,
-		'string-quotes': 'double',
+		'string-quotes': 'single',
 		'unit-case': 'lower',
 		'unit-no-unknown': true,
 		'value-keyword-case': ["lower", { 'ignoreKeywords': ['dummyValue'] }],

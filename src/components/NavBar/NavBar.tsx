@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-//  import { State as ThemeState } from '../../redux/modules/theme';
+// import { State as ThemeState } from '../../redux/modules/theme';
 
 import { useLocation } from 'react-router-dom';
 import { NavLinks } from './NavLinks';
@@ -22,34 +22,34 @@ export const NavBar: React.FC = () => {
 		setActiveRoute(location.pathname);
 	}, [location.pathname]);
 
-	const doThemeToggle = () => {
-		themeMode.toggleTheme();
-		setClicked(false);
-	};
-
 	return (
 		<Styles.NavBar>
 			<div className="container">
 				<Styles.Expand>
-					<Styles.NavBarBrandLink to="/" onClick={() => setClicked(false)}>
+					<Styles.NavBarBrandLink to="/" onClick={(): void => setClicked(false)}>
 						{activeRoute !== '/' ? 'Home' : null}
 					</Styles.NavBarBrandLink>
 
 					<Styles.NavBarNav clicked={clicked} className={clicked ? 'clicked' : ''}>
 						<li>
-							<Styles.NavBarNavA onClick={doThemeToggle}>
+							<Styles.NavBarNavA
+								onClick={(): void => {
+									themeMode.toggleTheme();
+									setClicked(false);
+								}}
+							>
 								{themeMode.mode === 'dark' ? `Light` : `Dark`}Theme
 							</Styles.NavBarNavA>
 						</li>
 
 						{NavLinks.map((item, index) => {
-							let a = activeRoute === `/${item.url}`;
+							const a = activeRoute === `/${item.url}`;
 							return (
 								<li key={index}>
 									<Styles.NavBarNavLink
 										activelink={a.toString()}
 										to={`/${item.url}`}
-										onClick={() => setClicked(false)}
+										onClick={(): void => setClicked(false)}
 									>
 										{item.title}
 									</Styles.NavBarNavLink>
@@ -58,7 +58,7 @@ export const NavBar: React.FC = () => {
 						})}
 					</Styles.NavBarNav>
 
-					<Styles.Toggler onClick={() => setClicked(!clicked)}>
+					<Styles.Toggler onClick={(): void => setClicked(!clicked)}>
 						{clicked && <Styles.StyledSvgTimes fill="#ffffff" />}
 
 						{!clicked && <Styles.StyledSvgBars fill="#ffffff" />}
