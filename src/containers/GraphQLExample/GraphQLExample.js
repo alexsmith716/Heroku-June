@@ -1,21 +1,17 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { useQuery, useLazyQuery, useApolloClient, NetworkStatus, gql, useReactiveVar } from '@apollo/client';
+import { useLazyQuery, useApolloClient, NetworkStatus, gql, useReactiveVar } from '@apollo/client';
 
-import { charactercurrentSearchStringVar } from '../../apollo/apolloClient';
 import { Loading } from '../../components/Loading';
 import Button from '../../components/Button';
 import { RickAndMortyCharacter } from '../../components/RickAndMortyCharacter';
-import {
-	GET_RICK_AND_MORTY_CHARACTERS,
-	GET_CHARACTERS_CURRENT_SEARCH_STRING,
-} from '../../graphql/queries/queries.js';
+import { GET_RICK_AND_MORTY_CHARACTERS } from '../../graphql/queries/queries.js';
 
 import { reactiveVariableMutations } from '../../graphql/operations/mutations';
-import {
-	charactersCurrentSearchStringVar,
-	charactersCurrentSearchStringEVALVar,
-} from '../../apollo/apolloClient';
+import { charactersCurrentSearchStringVar } from '../../apollo/apolloClient';
+
+// all the logic here will all be rebuilt & refactored
+// https://github.com/apollographql/apollo-client/releases
 
 const GraphQLExample = () => {
 	const client = useApolloClient();
@@ -28,19 +24,8 @@ const GraphQLExample = () => {
 	const [rickAndMortyCharactersCurrentPage, setRickAndMortyCharactersCurrentPage] = useState(null);
 	const [rickAndMortyResults, setRickAndMortyResults] = useState(false);
 	const [toggleCacheView, setToggleCacheView] = useState(false);
-	const [skipUseQueryRefetch, setSkipUseQueryRefetch] = useState(false);
 
-	const [componentDidMount, setComponentDidMount] = useState(false);
 	const currentSearchStringReactiveVar = useReactiveVar(charactersCurrentSearchStringVar);
-
-	//  const {
-	//      loading: currentSearchStringLOADING,
-	//      error: currentSearchStringERROR,
-	//      data: currentSearchStringDATA,
-	//      previousData: currentSearchStringPreviousDATA,
-	//    } = useQuery(
-	//      GET_CHARACTERS_CURRENT_SEARCH_STRING,
-	//  );
 
 	const [
 		getRickAndMortyCharacters,
@@ -48,17 +33,18 @@ const GraphQLExample = () => {
 			loading: rickAndMortyCharactersLoading,
 			error: rickAndMortyCharactersError,
 			data: rickAndMortyCharactersDATA,
-			previousData: rickAndMortyCharactersPreviousDATA,
 			refetch,
 			fetchMore,
 			networkStatus,
-			called,
+			variables: rickAndMortyCharactersVARIABLES,
 		},
 	] = useLazyQuery(
 		gql`
 			${GET_RICK_AND_MORTY_CHARACTERS}
 		`,
 		{
+			fetchPolicy: 'cache-first',
+			errorPolicy: 'none',
 			notifyOnNetworkStatusChange: true,
 			onCompleted: () => {
 				if (rickAndMortyCharactersDATA) {
@@ -87,36 +73,33 @@ const GraphQLExample = () => {
 	);
 
 	useEffect(() => {
-		if (!componentDidMount) {
-			setComponentDidMount(true);
-		}
-
-		if (componentDidMount) {
-			// console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ComponentDidMount >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
-		}
-	}, [componentDidMount]);
-
-	useEffect(() => {
 		if (currentSearchStringReactiveVar) {
 			const currentSearchStringVar = currentSearchStringReactiveVar.currentSearchString;
-
 			if (currentSearchStringVar !== '') {
-				if (!rickAndMortyCharactersDATA) {
+				if (!rickAndMortyCharactersVARIABLES) {
 					getRickAndMortyCharacters({ variables: { filter: { name: currentSearchStringVar } } });
 				}
-
-				if (rickAndMortyCharactersDATA) {
+				if (
+					rickAndMortyCharactersDATA &&
+					currentSearchStringVar !== rickAndMortyCharactersVARIABLES.filter.name
+				) {
 					refetch({ filter: { name: currentSearchStringVar } });
 				}
 			}
 		}
-	}, [currentSearchStringReactiveVar]);
+	}, [
+		currentSearchStringReactiveVar,
+		getRickAndMortyCharacters,
+		rickAndMortyCharactersDATA,
+		rickAndMortyCharactersVARIABLES,
+		refetch,
+	]);
 
 	useEffect(() => {
 		if (toggleCacheView) {
 			setClientExtract(client.extract());
 		}
-	}, [toggleCacheView, rickAndMortyCharactersDATA]);
+	}, [toggleCacheView, rickAndMortyCharactersDATA, client]);
 
 	return (
 		<>

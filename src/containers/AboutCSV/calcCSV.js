@@ -77,16 +77,16 @@ export async function calcCSV() {
 		// data structure Set() will indicate which zip spans multiple rate areas
 		const rateAreasDuplicatesArray = [...new Set(rateAreasArray)];
 
+		function calculateSilverStateRateAreas(value, index) {
+			return (
+				value.state === matchingZipObjectsArray[0].state &&
+				value.rate_area === matchingZipObjectsArray[0].rate_area
+			);
+		}
+
 		//  In that case (rateAreasDuplicatesArray.length > 1), the answer is ambiguous and should be left blank
 		if (rateAreasDuplicatesArray.length === 1) {
 			const filteredStateRatePlansArray = responsePLANS.filter(calculateSilverStateRateAreas);
-
-			function calculateSilverStateRateAreas(value, index) {
-				return (
-					value.state === matchingZipObjectsArray[0].state &&
-					value.rate_area === matchingZipObjectsArray[0].rate_area
-				);
-			}
 
 			// evaluate slcsp if more than on silver plan available
 			if (filteredStateRatePlansArray.length > 2) {

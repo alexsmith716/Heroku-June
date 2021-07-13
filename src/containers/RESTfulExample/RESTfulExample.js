@@ -1,17 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { useQuery, useLazyQuery, useApolloClient, NetworkStatus, useReactiveVar, gql } from '@apollo/client';
+import { useLazyQuery, useApolloClient, useReactiveVar } from '@apollo/client';
 
 import { Loading } from '../../components/Loading';
 import Button from '../../components/Button';
 import { GoogleBookBook } from '../../components/GoogleBookBook';
-import {
-	GET_GOOGLE_BOOKS,
-	GET_GOOGLE_BOOK,
-	GET_GOOGLE_BOOKS_CURRENT_SEARCH_STRING,
-} from '../../graphql/queries/queries.js';
+import { GET_GOOGLE_BOOKS } from '../../graphql/queries/queries.js';
 import { reactiveVariableMutations } from '../../graphql/operations/mutations';
 import { googleBooksCurrentSearchStringVar } from '../../apollo/apolloClient';
+
+// all the logic here will all be rebuilt & refactored
+// fix needed for a 'googleBooksREFETCH' after a 'fetchMore'
 
 const RESTfulExample = () => {
 	const client = useApolloClient();
@@ -24,7 +23,6 @@ const RESTfulExample = () => {
 
 	const { setGoogleBooksCurrentSearchStringVar } = reactiveVariableMutations;
 	const [googleBooksSearchInput, setGoogleBooksSearchInput] = useState('');
-	const [componentDidMount, setComponentDidMount] = useState(false);
 	const currentSearchStringReactiveVar = useReactiveVar(googleBooksCurrentSearchStringVar);
 
 	const [readQueryGetGoogleBooks, setReadQueryGetGoogleBooks] = useState(null);
@@ -56,11 +54,9 @@ const RESTfulExample = () => {
 			loading: googleBooksLOADING,
 			error: googleBooksERROR,
 			data: googleBooksDATA,
-			previousData: googleBooksPreviousData,
 			refetch: googleBooksREFETCH,
 			fetchMore,
-			networkStatus,
-			called,
+			variables: googleBooksVARIABLES,
 		},
 	] = useLazyQuery(GET_GOOGLE_BOOKS, {
 		fetchPolicy: 'cache-first',
@@ -73,42 +69,43 @@ const RESTfulExample = () => {
 		onError,
 	});
 
-	const [getGoogleBook, { loading: googleBookLOADING, error: googleBookERROR, data: googleBookDATA }] =
-		useLazyQuery(GET_GOOGLE_BOOK);
-
 	useEffect(() => {
 		if (readQueryGetGoogleBooks) {
 			getGoogleBooks({
 				variables: { searchString: currentSearchStringReactiveVar.currentSearchStringCopy },
 			});
 		}
-	}, [readQueryGetGoogleBooks]);
+	}, [readQueryGetGoogleBooks, currentSearchStringReactiveVar, getGoogleBooks]);
 
 	useEffect(() => {
 		setReadQueryGetGoogleBooks(client.readQuery({ query: GET_GOOGLE_BOOKS }));
-	}, []);
+	}, [client]);
 
 	useEffect(() => {
 		if (currentSearchStringReactiveVar) {
 			const currentSearchStringVar = currentSearchStringReactiveVar.currentSearchString;
-
 			if (currentSearchStringVar !== '') {
-				if (!googleBooksDATA) {
+				if (!googleBooksVARIABLES) {
 					getGoogleBooks({ variables: { searchString: currentSearchStringVar } });
 				}
-
-				if (googleBooksDATA) {
+				if (googleBooksDATA && currentSearchStringVar !== googleBooksVARIABLES.searchString) {
 					googleBooksREFETCH({ searchString: currentSearchStringVar });
 				}
 			}
 		}
-	}, [currentSearchStringReactiveVar]);
+	}, [
+		currentSearchStringReactiveVar,
+		getGoogleBooks,
+		googleBooksDATA,
+		googleBooksVARIABLES,
+		googleBooksREFETCH,
+	]);
 
 	useEffect(() => {
 		if (toggleCacheView) {
 			setClientExtract(client.extract());
 		}
-	}, [toggleCacheView, googleBooksDATA]);
+	}, [toggleCacheView, googleBooksDATA, client]);
 
 	useEffect(() => {
 		if (googleBooksLOADING) {
@@ -123,7 +120,7 @@ const RESTfulExample = () => {
 			// setQueryError(googleBooksERROR.message)
 			setQueryError('NetworkError when attempting to fetch resource.');
 		}
-	}, [googleBooksERROR]);
+	}, [googleBooksERROR, currentSearchStringReactiveVar, setGoogleBooksCurrentSearchStringVar]);
 
 	useEffect(() => {
 		if (googleBooksFetchMoreError) {
@@ -179,6 +176,15 @@ const RESTfulExample = () => {
 								<div>{JSON.stringify(clientExtract)}</div>
 							</div>
 						)}
+					</div>
+
+					<div className="mb-3">
+						<Button
+							type="button"
+							className="btn-success btn-md"
+							onClick={() => setToggleCacheView(!toggleCacheView)}
+							buttonText={!clientExtract ? 'View Apollo Cache' : 'Toggle Cache View'}
+						/>
 					</div>
 
 					<div className="mb-3">

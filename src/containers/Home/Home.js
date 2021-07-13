@@ -1,11 +1,12 @@
 import React, { useEffect, useReducer } from 'react';
-import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { NavLinks } from '../../components/NavBar/NavLinks';
 import * as Styles from './styles';
 
 const reducer = (int, action) => {
-	int >= NavLinks.length - 1 ? (int = -1) : null;
+	if (int >= NavLinks.length - 1) {
+		int = -1;
+	}
 	switch (action.type) {
 		case 'incrementNavLink':
 			return int + 1;
@@ -34,7 +35,7 @@ const Home = () => {
 
 			<Styles.Masthead className="mb-5">
 				<div className="container">
-					<Styles.MastheadHeadingOne>Alex Smith's App</Styles.MastheadHeadingOne>
+					<Styles.MastheadHeadingOne>Alex Smith&apos;s App</Styles.MastheadHeadingOne>
 
 					<Styles.MastheadHeadingTwo>My Full-Stack Developer Portfolio</Styles.MastheadHeadingTwo>
 
@@ -45,7 +46,7 @@ const Home = () => {
 					</Styles.MastheadBlurbElipsis>
 
 					<Styles.MastheadLink className="btn btn-lg btn-success" to={`/${NavLinks[int].url}`}>
-						{`${NavLinks[int].title}`}&nbsp;>>
+						{`${NavLinks[int].title}`}&nbsp;&gt;&gt;
 					</Styles.MastheadLink>
 				</div>
 			</Styles.Masthead>

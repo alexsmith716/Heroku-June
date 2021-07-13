@@ -23,8 +23,9 @@ export const initialState: State = {
 };
 
 type LoadActions = {
+	type: string[];
 	types: string[];
-	promise: () => Promise<any>;
+	promise: () => Promise<void>;
 };
 
 export const reducer = (state: State = initialState, action: Actions): State => {
@@ -64,6 +65,7 @@ export function isInfoAlertLoaded(storeState: State): boolean {
 
 export function loadInfoAlert(): LoadActions {
 	return {
+		type: [LOAD, LOAD_SUCCESS, LOAD_FAIL],
 		types: [LOAD, LOAD_SUCCESS, LOAD_FAIL],
 		promise: () => postRequestConcatExportASYNC('resolve', true, 10, null),
 	};

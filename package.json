@@ -11,6 +11,7 @@
   "start": "NODE_ENV=production node lib/server/index.js",
   "clean": "rimraf dist lib",
   "lint:components": "eslint src/components/",
+  "lint:containers": "eslint src/containers/",
   "stylelint": "stylelint src/",
   "format": "prettier --config .prettierrc --write src/"
  },
