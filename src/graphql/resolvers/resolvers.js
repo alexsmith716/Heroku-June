@@ -1,7 +1,6 @@
 import { paginateResults } from '../utils/utils';
 import { GoogleBooksAPI } from '../datasources/googleBooksAPI';
 import { RickAndMortyAPI } from '../datasources/rickAndMortyAPI';
-import graphqlClient from '../../apollo/graphqlClient';
 
 import {
 	GET_RICK_AND_MORTY_CHARACTER,

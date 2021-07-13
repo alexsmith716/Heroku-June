@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { loadAboutCSV } from '../../redux/modules/aboutCSV';
-import { State as AboutCSVState } from '../../redux/modules/aboutCSV';
+// import { State as AboutCSVState } from '../../redux/modules/aboutCSV';
 import { Loading } from '../../components/Loading';
 
 const AboutCSV = () => {
@@ -13,7 +13,6 @@ const AboutCSV = () => {
 	const error = useSelector((state) => state.aboutCSV.error);
 	const errorResponse = useSelector((state) => state.aboutCSV.errorResponse);
 	const data = useSelector((state) => state.aboutCSV.data);
-	const [dispatchError, setDispatchError] = useState(null);
 
 	//	const doLoadAboutCSV = async () => {
 	//		try {
@@ -24,18 +23,13 @@ const AboutCSV = () => {
 	//		}
 	//	};
 
-	const doLoadAboutCSV = () => {
-		dispatch(loadAboutCSV()).catch((error) => {
-			setDispatchError(error);
-			throw new Error('Error fetching data');
-		});
-	};
-
 	useEffect(() => {
 		if (!data) {
-			doLoadAboutCSV();
+			dispatch(loadAboutCSV()).catch((error) => {
+				throw new Error('Error fetching data');
+			});
 		}
-	}, [data]);
+	}, [data, dispatch]);
 
 	return (
 		<>
@@ -56,20 +50,20 @@ const AboutCSV = () => {
 
 				<div className="mb-3">
 					<p>
-						CSV file "slcsp.csv" contains ZIP codes in the first column. Fill in the second column
-						with the rate of the corresponding SLCSP and emit the rate as a CSV.
+						CSV file &quot;slcsp.csv&quot; contains ZIP codes in the first column. Fill in the
+						second column with the rate of the corresponding SLCSP and emit the rate as a CSV.
 					</p>
 					<p>
 						The order of the rows as emitted stay the same as how they appeared in the original
-						"slcsp.csv". The first row is the column headers: "zipcode,rate" The remaining lines
-						output unquoted values with two digits after the decimal place of the rates, for
-						example: "64148,245.20".
+						&quot;slcsp.csv&quot;. The first row is the column headers: &quot;zipcode,rate&quot;
+						The remaining lines output unquoted values with two digits after the decimal place of
+						the rates, for example: &quot;64148,245.20&quot;.
 					</p>
 					<p>
 						It may not be possible to determine a SLCSP for every ZIP code given; for example, if
 						there is only one silver plan available, there is no _second_ lowest cost plan. Where
 						a definitive rate cannot be found, those cells are left blank in the output CSV (no
-						quotes or zeroes or other text). For example, "40813,".
+						quotes or zeroes or other text). For example, &quot;40813,&quot;.
 					</p>
 					<p>
 						A ZIP code can be in more than one rate area. In that case, the SLCSP is ambiguous and

@@ -23,8 +23,9 @@ export const initialState: State = {
 };
 
 type LoadActions = {
+	type: string[];
 	types: string[];
-	promise: () => Promise<any>;
+	promise: () => Promise<void>;
 };
 
 export const reducer = (state: State = initialState, action: Actions): State => {
@@ -63,6 +64,7 @@ export function isAboutCSVLoaded(storeState: State): boolean {
 
 export function loadAboutCSV(): LoadActions {
 	return {
+		type: [LOAD, LOAD_SUCCESS, LOAD_FAIL],
 		types: [LOAD, LOAD_SUCCESS, LOAD_FAIL],
 		promise: () => calcCSV(),
 	};

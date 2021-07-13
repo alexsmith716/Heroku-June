@@ -1,8 +1,8 @@
-import { postRequestConcatExportASYNC } from '../../utils/mockAPI';
+import { fetchBridgeRatings } from '../../containers/NYCBridgeRatings/fetchBridgeRatings';
 
-const LOAD = 'redux-example/info/LOAD';
-const LOAD_SUCCESS = 'redux-example/info/LOAD_SUCCESS';
-const LOAD_FAIL = 'redux-example/info/LOAD_FAIL';
+const LOAD = 'redux-example/nycBridgeRatings/LOAD';
+const LOAD_SUCCESS = 'redux-example/nycBridgeRatings/LOAD_SUCCESS';
+const LOAD_FAIL = 'redux-example/nycBridgeRatings/LOAD_FAIL';
 
 export type Actions = { type: typeof LOAD } | { type: typeof LOAD_SUCCESS } | { type: typeof LOAD_FAIL };
 
@@ -49,9 +49,8 @@ export const reducer = (state: State = initialState, action: Actions): State => 
 				...state,
 				loading: false,
 				loaded: false,
-				// error: action.error,
 				error: true,
-				errorResponse: { message: action, documentation_url: '' },
+				errorResponse: action,
 			};
 
 		default:
@@ -59,14 +58,10 @@ export const reducer = (state: State = initialState, action: Actions): State => 
 	}
 };
 
-export function isInfoLoaded(storeState: State): boolean {
-	return storeState && storeState.loaded;
-}
-
-export function loadInfo(): LoadActions {
+export function loadNYCBridgeRatings(): LoadActions {
 	return {
 		type: [LOAD, LOAD_SUCCESS, LOAD_FAIL],
 		types: [LOAD, LOAD_SUCCESS, LOAD_FAIL],
-		promise: () => postRequestConcatExportASYNC('resolve', true, 250, null),
+		promise: () => fetchBridgeRatings(),
 	};
 }

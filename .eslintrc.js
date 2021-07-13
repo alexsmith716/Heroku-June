@@ -1,71 +1,225 @@
+'use strict';
+
 module.exports = {
-	env: {
-		browser: true,
-		node: true,
-		jest: true
-	},
+	extends: [require.resolve('./.baseEslintrc')],
 
-	parserOptions: {
-		sourceType: 'module',
-		allowImportExportEverywhere: true,
-		ecmaVersion: 9,
-		ecmaFeatures: {
-			jsx: true
-		}
-	},
-
-	settings: {
-		react: {
-			pragma: 'React',
-			version: 'detect'
-		}
-	},
+	plugins: ['react-hooks'],
 
 	overrides: [
 		{
-			files: ['*.js'],
+			files: ['**/*.ts?(x)'],
+			parser: '@typescript-eslint/parser',
+			parserOptions: {
+				ecmaVersion: 2018,
+				sourceType: 'module',
+				ecmaFeatures: {
+					jsx: true,
+				},
+				warnOnUnsupportedTypeScriptVersion: true,
+			},
 			extends: [
-				'eslint:recommended',
-				'plugin:prettier/recommended',
-				'plugin:react/recommended'
-			],
-			plugins: [
-				'react',
-				'react-hooks'
-			],
-			parser: '@babel/eslint-parser',
-			rules: {
-				'no-unused-vars': 2,
-				'react-hooks/rules-of-hooks': 2,
-				'react-hooks/exhaustive-deps': 1
-			}
-		},
-		{
-			files: ['*.ts', '*.tsx'],
-			extends: [
-				'eslint:recommended',
-				'plugin:prettier/recommended',
 				'plugin:@typescript-eslint/recommended',
 				'plugin:@typescript-eslint/eslint-recommended',
-				'plugin:react/recommended',
-        'prettier'
+				'prettier'
 			],
 			plugins: [
 				'@typescript-eslint',
-				'react',
-				'react-hooks'
 			],
-			parser: '@typescript-eslint/parser',
+			
 			rules: {
-				'@typescript-eslint/no-empty-function': 2,
-				'@typescript-eslint/no-use-before-define': 2,
+				'default-case': 0,
+				'no-dupe-class-members': 0,
+				'no-undef': 0,
+
+				'@typescript-eslint/consistent-type-assertions': 1,
+				'no-array-constructor': 0,
+				'@typescript-eslint/no-array-constructor': 1,
+				'no-redeclare': 0,
+				'@typescript-eslint/no-redeclare': 1,
+				'no-use-before-define': 0,
+				'@typescript-eslint/no-use-before-define': [
+					'warn',
+					{
+						functions: false,
+						classes: false,
+						variables: false,
+						typedefs: false,
+					},
+				],
+				'no-unused-expressions': 0,
+				'@typescript-eslint/no-unused-expressions': [
+					'error',
+					{
+						allowShortCircuit: true,
+						allowTernary: true,
+						allowTaggedTemplates: true,
+					},
+				],
+				'no-unused-vars': 0,
+				'@typescript-eslint/no-unused-vars': [
+					'warn',
+					{
+						args: 'none',
+						ignoreRestSiblings: true,
+					},
+				],
+				'no-useless-constructor': 0,
+				'@typescript-eslint/no-useless-constructor': 1,
 				'@typescript-eslint/explicit-function-return-type': 0,
-				'@typescript-eslint/no-explicit-any': 2,
-				'react/display-name': 2,
-				'react/prop-types': 0,
-				'react-hooks/rules-of-hooks': 2,
-				'react-hooks/exhaustive-deps': 1
-			}
-		}
-	]
+			},
+		},
+	],
+
+	rules: {
+		'array-callback-return': 1,
+		'default-case': ['warn', { commentPattern: '^no default$' }],
+		'dot-location': ['warn', 'property'],
+		eqeqeq: ['warn', 'smart'],
+		'new-parens': 1,
+		'no-array-constructor': 1,
+		'no-caller': 1,
+		'no-cond-assign': ['warn', 'except-parens'],
+		'no-const-assign': 1,
+		'no-control-regex': 1,
+		'no-delete-var': 1,
+		'no-dupe-args': 1,
+		'no-dupe-class-members': 1,
+		'no-dupe-keys': 1,
+		'no-duplicate-case': 1,
+		'no-empty-character-class': 1,
+		'no-empty-pattern': 1,
+		'no-eval': 1,
+		'no-ex-assign': 1,
+		'no-extend-native': 1,
+		'no-extra-bind': 1,
+		'no-extra-label': 1,
+		'no-fallthrough': 1,
+		'no-func-assign': 1,
+		'no-implied-eval': 1,
+		'no-invalid-regexp': 1,
+		'no-iterator': 1,
+		'no-label-var': 1,
+		'no-labels': ['warn', { allowLoop: true, allowSwitch: false }],
+		'no-lone-blocks': 1,
+		'no-loop-func': 1,
+		'no-mixed-operators': [
+			'warn',
+			{
+				groups: [
+					['&', '|', '^', '~', '<<', '>>', '>>>'],
+					['==', '!=', '===', '!==', '>', '>=', '<', '<='],
+					['&&', '||'],
+					['in', 'instanceof'],
+				],
+				allowSamePrecedence: false,
+			},
+		],
+		'no-multi-str': 1,
+		'no-native-reassign': 1,
+		'no-negated-in-lhs': 1,
+		'no-new-func': 1,
+		'no-new-object': 1,
+		'no-new-symbol': 1,
+		'no-new-wrappers': 1,
+		'no-obj-calls': 1,
+		'no-octal': 1,
+		'no-octal-escape': 1,
+		'no-redeclare': 1,
+		'no-regex-spaces': 1,
+		'no-restricted-syntax': ['warn', 'WithStatement'],
+		'no-script-url': 1,
+		'no-self-assign': 1,
+		'no-self-compare': 1,
+		'no-sequences': 1,
+		'no-shadow-restricted-names': 1,
+		'no-sparse-arrays': 1,
+		'no-template-curly-in-string': 1,
+		'no-this-before-super': 1,
+		'no-throw-literal': 1,
+		'no-undef': 2,
+		'no-unreachable': 1,
+		'no-unused-expressions': [
+			'error',
+			{
+				allowShortCircuit: true,
+				allowTernary: true,
+				allowTaggedTemplates: true,
+			},
+		],
+		'no-unused-labels': 1,
+		'no-unused-vars': [
+			'warn',
+			{
+				args: 'none',
+				ignoreRestSiblings: true,
+			},
+		],
+		'no-use-before-define': [
+			'warn',
+			{
+				functions: false,
+				classes: false,
+				variables: false,
+			},
+		],
+		'no-useless-computed-key': 1,
+		'no-useless-concat': 1,
+		'no-useless-constructor': 1,
+		'no-useless-escape': 1,
+		'no-useless-rename': [
+			'warn',
+			{
+				ignoreDestructuring: false,
+				ignoreImport: false,
+				ignoreExport: false,
+			},
+		],
+		'no-with': 1,
+		'no-whitespace-before-property': 1,
+		'react-hooks/exhaustive-deps': 1,
+		'require-yield': 1,
+		'rest-spread-spacing': ['warn', 'never'],
+		strict: ['warn', 'never'],
+		'unicode-bom': ['warn', 'never'],
+		'use-isnan': 1,
+		'valid-typeof': 1,
+		'no-restricted-properties': [
+			'error',
+			{
+				object: 'require',
+				property: 'ensure',
+				message:
+					'Please use import() instead. More info: https://facebook.github.io/create-react-app/docs/code-splitting',
+			},
+			{
+				object: 'System',
+				property: 'import',
+				message:
+					'Please use import() instead. More info: https://facebook.github.io/create-react-app/docs/code-splitting',
+			},
+		],
+		'getter-return': 1,
+
+		'react/forbid-foreign-prop-types': ['warn', { allowInPropTypes: true }],
+		'react/jsx-no-comment-textnodes': 1,
+		'react/jsx-no-duplicate-props': 1,
+		'react/jsx-no-target-blank': 1,
+		'react/jsx-no-undef': 2,
+		'react/jsx-pascal-case': [
+			'warn',
+			{
+				allowAllCaps: true,
+				ignore: [],
+			},
+		],
+		'react/no-danger-with-children': 1,
+		'react/no-direct-mutation-state': 1,
+		'react/no-is-mounted': 1,
+		'react/no-typos': 2,
+		'react/require-render-return': 2,
+		'react/style-prop-object': 1,
+		'react-hooks/rules-of-hooks': 2,
+    // currently will ignore 'react/prop-types'
+    'react/prop-types': 0,
+	},
 };

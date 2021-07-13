@@ -4,7 +4,7 @@ const LOAD = 'redux-example/infoAlertThree/LOAD';
 const LOAD_SUCCESS = 'redux-example/infoAlertThree/LOAD_SUCCESS';
 const LOAD_FAIL = 'redux-example/infoAlertThree/LOAD_FAIL';
 
-export type Actions = { type: typeof LOAD } | { type: typeof LOAD_SUCCESS } | { type: typeof LOAD_FAIL };
+export type Actions = { typeX: typeof LOAD } | { typeX: typeof LOAD_SUCCESS } | { typeX: typeof LOAD_FAIL };
 
 export type State = {
 	loading: boolean;
@@ -23,12 +23,13 @@ export const initialState: State = {
 };
 
 type LoadActions = {
+	type: string[];
 	types: string[];
-	promise: () => Promise<any>;
+	promise: () => Promise<void>;
 };
 
 export const reducer = (state: State = initialState, action: Actions): State => {
-	switch (action.type) {
+	switch (action.typeX) {
 		case LOAD:
 			return {
 				...state,
@@ -64,6 +65,7 @@ export function isInfoAlertThreeLoaded(storeState: State): boolean {
 
 export function loadInfoAlertThree(): LoadActions {
 	return {
+		type: [LOAD, LOAD_SUCCESS, LOAD_FAIL],
 		types: [LOAD, LOAD_SUCCESS, LOAD_FAIL],
 		promise: () => postRequestConcatExportASYNC('resolve', true, 110, null),
 	};
